@@ -10,7 +10,15 @@ import java.awt.*;
  */
 public class SystemTrayIcon {
     private static TrayIcon trayIcon;
-
+    private static MenuItem startWorkItem;
+    private static MenuItem startBreakItem;
+    private static MenuItem startLongBreakItem;
+    private static MenuItem pauseItem;
+    private static MenuItem resumeItem;
+    private static MenuItem stopItem;
+    private static MenuItem showTimerItem;
+    private static Menu settingsItem;
+    private static MenuItem exitItem;
 
     private SystemTrayIcon() {
 
@@ -19,10 +27,6 @@ public class SystemTrayIcon {
     public static void showIcon() throws AWTException {
         SystemTray.getSystemTray().add(getTrayIcon());
         getTrayIcon().displayMessage(Constants.APP_NAME, Constants.MESSAGE_APPLICATION_STARTED, TrayIcon.MessageType.INFO);
-    }
-
-    public static void hideIcon() {
-        SystemTray.getSystemTray().remove(trayIcon);
     }
 
     private static TrayIcon getTrayIcon() {
@@ -41,51 +45,113 @@ public class SystemTrayIcon {
         menu.add(getStartBreakItem());
         menu.add(getStartLongBreakItem());
         menu.add(getPauseItem());
+        menu.add(getResumeItem());
         menu.add(getStopItem());
+        menu.add(getShowTimerItem());
         menu.add(getSettingsItem());
         menu.add(getExitItem());
         return menu;
     }
 
     private static MenuItem getStartWorkItem() {
-        MenuItem startWorkItem = new MenuItem("Start Timer (Work)");
-        startWorkItem.addActionListener(e -> System.out.println());
+        startWorkItem = new MenuItem("Start Timer (Work)");
+        startWorkItem.addActionListener(e -> {
+            Timer.start(Constants.WORK_TIME);
+            startWorkItem.setEnabled(false);
+            startBreakItem.setEnabled(true);
+            startLongBreakItem.setEnabled(true);
+            stopItem.setEnabled(true);
+            pauseItem.setEnabled(true);
+            resumeItem.setEnabled(true);
+        });
         return startWorkItem;
     }
 
     private static MenuItem getStartBreakItem() {
-        MenuItem startBreakItem = new MenuItem("Start Timer (Break)");
-        startBreakItem.addActionListener(e -> System.out.println());
+        startBreakItem = new MenuItem("Start Timer (Break)");
+        startBreakItem.addActionListener(e -> {
+            Timer.start(Constants.BREAK_TIME);
+            startWorkItem.setEnabled(true);
+            startBreakItem.setEnabled(false);
+            startLongBreakItem.setEnabled(true);
+            stopItem.setEnabled(true);
+            pauseItem.setEnabled(true);
+            resumeItem.setEnabled(true);
+        });
         return startBreakItem;
     }
 
     private static MenuItem getStartLongBreakItem() {
-        MenuItem startLongBreakItem = new MenuItem("Start Timer (Long Break)");
-        startLongBreakItem.addActionListener(e -> System.out.println());
+        startLongBreakItem = new MenuItem("Start Timer (Long Break)");
+        startLongBreakItem.addActionListener(e -> {
+            Timer.start(Constants.LONG_BREAK_TIME);
+            startWorkItem.setEnabled(true);
+            startBreakItem.setEnabled(true);
+            startLongBreakItem.setEnabled(false);
+            stopItem.setEnabled(true);
+            pauseItem.setEnabled(true);
+            resumeItem.setEnabled(true);
+        });
         return startLongBreakItem;
     }
 
     private static MenuItem getPauseItem() {
-        MenuItem pauseItem = new MenuItem("Pause Timer");
-        pauseItem.addActionListener(e -> System.out.println());
+        pauseItem = new MenuItem("Pause Timer");
+        pauseItem.addActionListener(e -> {
+            Timer.pause();
+            pauseItem.setEnabled(false);
+            resumeItem.setEnabled(true);
+        });
         return pauseItem;
     }
 
+    private static MenuItem getResumeItem() {
+        resumeItem = new MenuItem("Resume Timer");
+        resumeItem.addActionListener(e -> {
+            Timer.resume();
+            pauseItem.setEnabled(true);
+            resumeItem.setEnabled(false);
+        });
+        return resumeItem;
+    }
+
     private static MenuItem getStopItem() {
-        MenuItem stopItem = new MenuItem("Stop Timer");
-        stopItem.addActionListener(e -> System.out.println());
+        stopItem = new MenuItem("Stop Timer");
+        stopItem.addActionListener(e -> {
+            Timer.stop();
+            stopItem.setEnabled(false);
+            pauseItem.setEnabled(false);
+            resumeItem.setEnabled(false);
+            startWorkItem.setEnabled(true);
+            startBreakItem.setEnabled(true);
+            startLongBreakItem.setEnabled(true);
+        });
         return stopItem;
     }
 
+    private static MenuItem getShowTimerItem() {
+        showTimerItem = new MenuItem("Show timer dialog");
+        showTimerItem.addActionListener(e -> {
+            final boolean state = TimerDialog.get().isVisible();
+            TimerDialog.get().setVisible(!state);
+            if (state) {
+                showTimerItem.setLabel("Show timer dialog");
+            } else {
+                showTimerItem.setLabel("Hide timer dialog");
+            }
+        });
+        return showTimerItem;
+    }
+
     private static Menu getSettingsItem() {
-        Menu settingsItem = new Menu("Settings");
+        settingsItem = new Menu("Settings");
         settingsItem.addActionListener(e -> System.out.println());
         return settingsItem;
     }
 
     private static MenuItem getExitItem() {
-        MenuItem exitItem = new MenuItem("Exit");
-        exitItem.addActionListener(e -> System.out.println());
+        exitItem = new MenuItem("Exit");
+        exitItem.addActionListener(e -> System.exit(0));
         return exitItem;
     }
 }

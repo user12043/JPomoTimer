@@ -13,6 +13,6 @@ public class Constants {
     public static final int WORK_TIME = 25;
     public static final int BREAK_TIME = 5;
     public static final int LONG_BREAK_TIME = 15;
-    public static final int TIMER_DIALOG_FONT_SIZE = 20;
-    public static final String MESSAGE_APPLICATION_STARTED = "JPomodoroTimer is active\nYou can use the app from here.";
+    public static final float TIMER_DIALOG_FONT_SIZE = 20f;
+    public static final String MESSAGE_APPLICATION_STARTED = "JPomodoroTimer is active\nYou can use the app from system tray.";
 }

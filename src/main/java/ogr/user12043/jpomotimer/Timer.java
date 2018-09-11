@@ -11,11 +11,15 @@ public class Timer {
     private static int second;
     private static boolean showTimer;
 
-    public static void start() {
+    public static void start(int minutes) {
 
     }
 
     public static void pause() {
+
+    }
+
+    public static void resume() {
 
     }
 
