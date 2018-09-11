@@ -31,7 +31,7 @@ public class SystemTrayIcon {
 
     private static TrayIcon getTrayIcon() {
         if (trayIcon == null) {
-            Image image = Toolkit.getDefaultToolkit().getImage(Constants.DARK_ICON_PATH); // TODO add icons' maker <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+            Image image = Toolkit.getDefaultToolkit().getImage(Constants.DARK_ICON_PATH);
             trayIcon = new TrayIcon(image, Constants.APP_NAME, getPopupMenu());
             trayIcon.setImageAutoSize(true);
         }
