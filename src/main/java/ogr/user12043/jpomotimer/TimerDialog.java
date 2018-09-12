@@ -31,6 +31,11 @@ public class TimerDialog extends JDialog {
         return timerDialog;
     }
 
+    public void setTime(int minute, int second) {
+        label_minute.setText(((minute < 10) ? "0" : "") + minute);
+        label_second.setText(((second < 10) ? "0" : "") + second);
+    }
+
     private void addEventsForMovingWindow() {
         addMouseListener(new MouseAdapter() {
             @Override
@@ -55,21 +60,30 @@ public class TimerDialog extends JDialog {
 
     private void initComponents() {
         setLayout(new FlowLayout());
+        JPanel contentPane = new JPanel(new FlowLayout());
+        contentPane.setBackground(Color.BLACK);
+
         label_minute = new JLabel("00");
-        Font font = label_minute.getFont().deriveFont(Font.BOLD, Constants.TIMER_DIALOG_FONT_SIZE);
+        Font font = new Font("Sans Serif", Font.BOLD, Constants.TIMER_DIALOG_FONT_SIZE);
+        label_minute.setForeground(Color.WHITE);
         label_minute.setFont(font);
         label_separator = new JLabel(" : ");
+        label_separator.setForeground(Color.WHITE);
         label_separator.setFont(font);
         label_second = new JLabel("00");
+        label_second.setForeground(Color.WHITE);
         label_second.setFont(font);
 
-        add(label_minute);
-        add(label_separator);
-        add(label_second);
+        contentPane.add(label_minute);
+        contentPane.add(label_separator);
+        contentPane.add(label_second);
+
+        setContentPane(contentPane);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setUndecorated(true);
         setResizable(false);
+        setLocationByPlatform(true);
         pack();
     }
 }

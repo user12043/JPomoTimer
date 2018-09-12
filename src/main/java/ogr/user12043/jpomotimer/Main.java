@@ -1,5 +1,6 @@
 package ogr.user12043.jpomotimer;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -10,11 +11,17 @@ import java.awt.*;
  */
 public class Main {
     public static void main(String[] args) {
-        try {
-            SystemTrayIcon.showIcon();
-        } catch (AWTException e) {
-            System.err.println("Can not create tray icon");
-            e.printStackTrace();
-        }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                SystemTrayIcon.showIcon();
+                TimerDialog.get().setVisible(true);
+            } catch (AWTException e) {
+                System.err.println("Can not create tray icon");
+                e.printStackTrace();
+            } catch (Exception e) {
+                System.err.println("Unexpected error!");
+                e.printStackTrace();
+            }
+        });
     }
 }

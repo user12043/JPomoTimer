@@ -56,10 +56,10 @@ public class SystemTrayIcon {
     private static MenuItem getStartWorkItem() {
         startWorkItem = new MenuItem("Start Timer (Work)");
         startWorkItem.addActionListener(e -> {
-            Timer.start(Constants.WORK_TIME);
+            PomoTimer.start(Constants.WORK_TIME);
             startWorkItem.setEnabled(false);
-            startBreakItem.setEnabled(true);
-            startLongBreakItem.setEnabled(true);
+            startBreakItem.setEnabled(false);
+            startLongBreakItem.setEnabled(false);
             stopItem.setEnabled(true);
             pauseItem.setEnabled(true);
             resumeItem.setEnabled(true);
@@ -70,10 +70,10 @@ public class SystemTrayIcon {
     private static MenuItem getStartBreakItem() {
         startBreakItem = new MenuItem("Start Timer (Break)");
         startBreakItem.addActionListener(e -> {
-            Timer.start(Constants.BREAK_TIME);
-            startWorkItem.setEnabled(true);
+            PomoTimer.start(Constants.BREAK_TIME);
+            startWorkItem.setEnabled(false);
             startBreakItem.setEnabled(false);
-            startLongBreakItem.setEnabled(true);
+            startLongBreakItem.setEnabled(false);
             stopItem.setEnabled(true);
             pauseItem.setEnabled(true);
             resumeItem.setEnabled(true);
@@ -84,9 +84,9 @@ public class SystemTrayIcon {
     private static MenuItem getStartLongBreakItem() {
         startLongBreakItem = new MenuItem("Start Timer (Long Break)");
         startLongBreakItem.addActionListener(e -> {
-            Timer.start(Constants.LONG_BREAK_TIME);
-            startWorkItem.setEnabled(true);
-            startBreakItem.setEnabled(true);
+            PomoTimer.start(Constants.LONG_BREAK_TIME);
+            startWorkItem.setEnabled(false);
+            startBreakItem.setEnabled(false);
             startLongBreakItem.setEnabled(false);
             stopItem.setEnabled(true);
             pauseItem.setEnabled(true);
@@ -97,8 +97,9 @@ public class SystemTrayIcon {
 
     private static MenuItem getPauseItem() {
         pauseItem = new MenuItem("Pause Timer");
+        pauseItem.setEnabled(false);
         pauseItem.addActionListener(e -> {
-            Timer.pause();
+            PomoTimer.pause();
             pauseItem.setEnabled(false);
             resumeItem.setEnabled(true);
         });
@@ -107,8 +108,9 @@ public class SystemTrayIcon {
 
     private static MenuItem getResumeItem() {
         resumeItem = new MenuItem("Resume Timer");
+        resumeItem.setEnabled(false);
         resumeItem.addActionListener(e -> {
-            Timer.resume();
+            PomoTimer.resume();
             pauseItem.setEnabled(true);
             resumeItem.setEnabled(false);
         });
@@ -117,8 +119,9 @@ public class SystemTrayIcon {
 
     private static MenuItem getStopItem() {
         stopItem = new MenuItem("Stop Timer");
+        stopItem.setEnabled(false);
         stopItem.addActionListener(e -> {
-            Timer.stop();
+            PomoTimer.stop();
             stopItem.setEnabled(false);
             pauseItem.setEnabled(false);
             resumeItem.setEnabled(false);
@@ -130,7 +133,7 @@ public class SystemTrayIcon {
     }
 
     private static MenuItem getShowTimerItem() {
-        showTimerItem = new MenuItem("Show timer dialog");
+        showTimerItem = new MenuItem("Hide timer dialog");
         showTimerItem.addActionListener(e -> {
             final boolean state = TimerDialog.get().isVisible();
             TimerDialog.get().setVisible(!state);
