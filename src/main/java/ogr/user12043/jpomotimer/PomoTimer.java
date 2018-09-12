@@ -19,7 +19,7 @@ import java.util.TimerTask;
 public class PomoTimer {
     private static int minute = 0;
     private static int second = 0;
-    private static Timer timer = new Timer(true);
+    private static Timer timer;
 
     private static TimerTask getTimerTask() {
         TimerTask timerTask = new TimerTask() {
@@ -45,7 +45,8 @@ public class PomoTimer {
     public static void start(int startMinute) {
         System.out.println("starting timer for " + startMinute + " minute");
         minute = startMinute;
-        timer.scheduleAtFixedRate(getTimerTask(), 0, 1000);
+        timer = new Timer(true);
+        timer.scheduleAtFixedRate(getTimerTask(), 0, 3);
     }
 
     public static void pause() {
@@ -70,9 +71,14 @@ public class PomoTimer {
         Clip clip = null;
         try {
             clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File(Constants.ALERT_SOUND_PATH)));
+            File file = new File(Constants.ALERT_SOUND_PATH);
+            if (file.exists()) {
+                clip.open(AudioSystem.getAudioInputStream(file));
+            } else {
+                clip.open(AudioSystem.getAudioInputStream(PomoTimer.class.getResource(Constants.ALERT_SOUND_PATH)));
+            }
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-//            System.err.println("Can not play sound!");
+            System.err.println("Can not play sound!");
             e.printStackTrace();
         }
 

@@ -1,6 +1,9 @@
 package ogr.user12043.jpomotimer;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created on 11.09.2018 - 16:39
@@ -31,7 +34,19 @@ public class SystemTrayIcon {
 
     private static TrayIcon getTrayIcon() {
         if (trayIcon == null) {
-            Image image = Toolkit.getDefaultToolkit().getImage(Constants.DARK_ICON_PATH);
+            Image image;
+            File file = new File(Constants.DARK_ICON_PATH);
+            if (file.exists()) {
+                image = Toolkit.getDefaultToolkit().getImage(Constants.DARK_ICON_PATH);
+            } else {
+                try {
+                    image = ImageIO.read(SystemTrayIcon.class.getResourceAsStream("/" + Constants.DARK_ICON_PATH));
+                } catch (IOException e) {
+                    System.err.println("Can not load image");
+                    image = Toolkit.getDefaultToolkit().getImage(Constants.DARK_ICON_PATH);
+                }
+            }
+            SystemTrayIcon.class.getResourceAsStream(Constants.DARK_ICON_PATH);
             trayIcon = new TrayIcon(image, Constants.APP_NAME, getPopupMenu());
             trayIcon.setImageAutoSize(true);
         }

@@ -6,4 +6,15 @@
 
 
 Simple pomodoro timer application with Java displaying on system tray.
+
+####Features (not many yet :)
+- Displays timer on the screen (can be hidden)
+- Displays warning message and plays sound on time up
+- Can pause/resume the timer
 <hr>
+
+###Build and Run
+type `mvn clean package` to build the project
+Run the jar file created in `target/` folder.
+
+> If you want to customize icon and alert sound, copy the rest folder to the application directory and change the files.
