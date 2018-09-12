@@ -46,7 +46,7 @@ public class PomoTimer {
         System.out.println("starting timer for " + startMinute + " minute");
         minute = startMinute;
         timer = new Timer(true);
-        timer.scheduleAtFixedRate(getTimerTask(), 0, 3);
+        timer.scheduleAtFixedRate(getTimerTask(), 0, 1000);
     }
 
     public static void pause() {
