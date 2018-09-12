@@ -27,7 +27,6 @@ public class PomoTimer {
             public void run() {
                 if (second == 0) {
                     if (minute == 0) {
-                        timer.cancel();
                         timeUp();
                     } else {
                         second = 59;
@@ -68,6 +67,8 @@ public class PomoTimer {
     }
 
     public static void timeUp() {
+        stop();
+        SystemTrayIcon.stopped();
         Clip clip = null;
         try {
             clip = AudioSystem.getClip();

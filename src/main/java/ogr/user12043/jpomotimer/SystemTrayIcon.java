@@ -77,7 +77,7 @@ public class SystemTrayIcon {
             startLongBreakItem.setEnabled(false);
             stopItem.setEnabled(true);
             pauseItem.setEnabled(true);
-            resumeItem.setEnabled(true);
+            resumeItem.setEnabled(false);
         });
         return startWorkItem;
     }
@@ -91,7 +91,7 @@ public class SystemTrayIcon {
             startLongBreakItem.setEnabled(false);
             stopItem.setEnabled(true);
             pauseItem.setEnabled(true);
-            resumeItem.setEnabled(true);
+            resumeItem.setEnabled(false);
         });
         return startBreakItem;
     }
@@ -105,7 +105,7 @@ public class SystemTrayIcon {
             startLongBreakItem.setEnabled(false);
             stopItem.setEnabled(true);
             pauseItem.setEnabled(true);
-            resumeItem.setEnabled(true);
+            resumeItem.setEnabled(false);
         });
         return startLongBreakItem;
     }
@@ -171,5 +171,14 @@ public class SystemTrayIcon {
         exitItem = new MenuItem("Exit");
         exitItem.addActionListener(e -> System.exit(0));
         return exitItem;
+    }
+
+    public static void stopped() {
+        stopItem.setEnabled(false);
+        pauseItem.setEnabled(false);
+        resumeItem.setEnabled(false);
+        startWorkItem.setEnabled(true);
+        startBreakItem.setEnabled(true);
+        startLongBreakItem.setEnabled(true);
     }
 }
