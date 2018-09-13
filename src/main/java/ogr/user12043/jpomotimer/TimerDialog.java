@@ -83,7 +83,8 @@ public class TimerDialog extends JDialog {
         setAlwaysOnTop(true);
         setUndecorated(true);
         setResizable(false);
-        setLocationByPlatform(true);
         pack();
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((screenSize.width / 2) - getSize().width, (screenSize.height / 2) - getSize().height);
     }
 }
