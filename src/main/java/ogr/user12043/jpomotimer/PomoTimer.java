@@ -76,7 +76,7 @@ public class PomoTimer {
             if (file.exists()) {
                 clip.open(AudioSystem.getAudioInputStream(file));
             } else {
-                clip.open(AudioSystem.getAudioInputStream(PomoTimer.class.getResource(Constants.ALERT_SOUND_PATH)));
+                clip.open(AudioSystem.getAudioInputStream(PomoTimer.class.getResource("/" + Constants.ALERT_SOUND_PATH)));
             }
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
             System.err.println("Can not play sound!");
