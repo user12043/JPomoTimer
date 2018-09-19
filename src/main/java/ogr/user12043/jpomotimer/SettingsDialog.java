@@ -19,7 +19,7 @@ public class SettingsDialog extends JDialog {
     private JLabel label_timerPanelForeground;
     private JButton button_timerPanelBackground;
     private JButton button_timerPanelForeground;
-    private JButton button_applyDefaults;
+    private JButton button_setDefaults;
     private JLabel label_iconTheme;
     private JRadioButton radio_iconThemeDark;
     private JRadioButton radio_iconThemeLight;
@@ -33,9 +33,10 @@ public class SettingsDialog extends JDialog {
         setLocationByPlatform(true);
         pack();
         setMinimumSize(new Dimension(getPreferredSize().width + 10, getPreferredSize().height));
+        setValues();
         button_timerPanelBackground.addActionListener(this::button_timerBackgroundAction);
         button_timerPanelForeground.addActionListener(this::button_timerForegroundAction);
-        button_applyDefaults.addActionListener(this::button_applyDefaultsAction);
+        button_setDefaults.addActionListener(this::button_setDefaultsAction);
         button_apply.addActionListener(this::button_applyAction);
     }
 
@@ -50,12 +51,23 @@ public class SettingsDialog extends JDialog {
         spinner_workTime = Utils.getSpinner(5, Integer.MAX_VALUE);
         spinner_breakTime = Utils.getSpinner(5, Integer.MAX_VALUE);
         spinner_longBreakTime = Utils.getSpinner(5, Integer.MAX_VALUE);
-        spinner_timerPanelFontSize = Utils.getSpinner(10, 70);
+        spinner_timerPanelFontSize = Utils.getSpinner(10, 150);
         radio_iconThemeDark = new JRadioButton();
         radio_iconThemeLight = new JRadioButton();
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(radio_iconThemeDark);
         buttonGroup.add(radio_iconThemeLight);
+    }
+
+    private void setValues() {
+        spinner_workTime.setValue(Constants.workTime);
+        spinner_breakTime.setValue(Constants.breakTime);
+        spinner_longBreakTime.setValue(Constants.longBreakTime);
+        spinner_timerPanelFontSize.setValue(Constants.timerDialogFontSize);
+        button_timerPanelBackground.setBackground(Constants.timerPanelBackground);
+        button_timerPanelForeground.setBackground(Constants.timerPanelForeground);
+        radio_iconThemeDark.setSelected(Constants.iconThemeDark);
+        radio_iconThemeLight.setSelected(!Constants.iconThemeDark);
     }
 
     private void button_timerBackgroundAction(ActionEvent event) {
@@ -69,10 +81,18 @@ public class SettingsDialog extends JDialog {
     }
 
     private void button_applyAction(ActionEvent event) {
-
+        Constants.workTime = (int) spinner_workTime.getValue();
+        Constants.breakTime = (int) spinner_breakTime.getValue();
+        Constants.longBreakTime = (int) spinner_longBreakTime.getValue();
+        Constants.timerDialogFontSize = (int) spinner_timerPanelFontSize.getValue();
+        Constants.timerPanelBackground = button_timerPanelBackground.getBackground();
+        Constants.timerPanelForeground = button_timerPanelForeground.getBackground();
+        Constants.iconThemeDark = radio_iconThemeDark.isSelected();
+        TimerDialog.get().updateProperties();
+        SystemTrayIcon.updateIconImage();
     }
 
-    private void button_applyDefaultsAction(ActionEvent event) {
+    private void button_setDefaultsAction(ActionEvent event) {
         spinner_workTime.setValue(25);
         spinner_breakTime.setValue(5);
         spinner_longBreakTime.setValue(15);
@@ -229,15 +249,15 @@ public class SettingsDialog extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 10, 0);
         panel1.add(spinner_timerPanelFontSize, gbc);
-        button_applyDefaults = new JButton();
-        button_applyDefaults.setText("Apply Defaults");
+        button_setDefaults = new JButton();
+        button_setDefaults.setText("Apply Defaults");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.insets = new Insets(0, 0, 20, 0);
-        contentPane.add(button_applyDefaults, gbc);
+        contentPane.add(button_setDefaults, gbc);
         button_apply = new JButton();
         button_apply.setText("Apply");
         gbc = new GridBagConstraints();

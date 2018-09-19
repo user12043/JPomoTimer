@@ -35,24 +35,32 @@ public class SystemTrayIcon {
 
     private static TrayIcon getTrayIcon() {
         if (trayIcon == null) {
-            Image image;
-            String iconPath = (Constants.iconThemeDark) ? Constants.DARK_ICON_PATH : Constants.LIGHT_ICON_PATH;
-            File file = new File(iconPath);
-            if (file.exists()) {
-                image = Toolkit.getDefaultToolkit().getImage(iconPath);
-            } else {
-                try {
-                    image = ImageIO.read(SystemTrayIcon.class.getResourceAsStream("/" + iconPath));
-                } catch (IOException e) {
-                    System.err.println("Can not load tray icon image");
-                    image = Toolkit.getDefaultToolkit().getImage(iconPath);
-                }
-            }
-            SystemTrayIcon.class.getResourceAsStream(iconPath);
-            trayIcon = new TrayIcon(image, Constants.APP_NAME, getPopupMenu());
+            trayIcon = new TrayIcon(getIconImage(), Constants.APP_NAME, getPopupMenu());
             trayIcon.setImageAutoSize(true);
+            getIconImage();
         }
         return trayIcon;
+    }
+
+    private static Image getIconImage() {
+        Image image;
+        String iconPath = (Constants.iconThemeDark) ? Constants.DARK_ICON_PATH : Constants.LIGHT_ICON_PATH;
+        File file = new File(iconPath);
+        if (file.exists()) {
+            image = Toolkit.getDefaultToolkit().getImage(iconPath);
+        } else {
+            try {
+                image = ImageIO.read(SystemTrayIcon.class.getResourceAsStream("/" + iconPath));
+            } catch (IOException e) {
+                System.err.println("Can not load tray icon image");
+                image = Toolkit.getDefaultToolkit().getImage(iconPath);
+            }
+        }
+        return image;
+    }
+
+    public static void updateIconImage() {
+        trayIcon.setImage(getIconImage());
     }
 
     private static PopupMenu getPopupMenu() {

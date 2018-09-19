@@ -146,7 +146,7 @@
           </component>
         </children>
       </grid>
-      <component id="3f7da" class="javax.swing.JButton" binding="button_applyDefaults">
+      <component id="3f7da" class="javax.swing.JButton" binding="button_setDefaults">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag top="0" left="0" bottom="20" right="0" weightx="1.0" weighty="1.0"/>

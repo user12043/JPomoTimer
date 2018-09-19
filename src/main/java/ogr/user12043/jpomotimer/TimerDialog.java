@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
  */
 public class TimerDialog extends JDialog {
     private static TimerDialog timerDialog;
+    private JPanel contentPane;
     private JLabel label_minute;
     private JLabel label_separator;
     private JLabel label_second;
@@ -21,6 +22,7 @@ public class TimerDialog extends JDialog {
     private TimerDialog() {
         initComponents();
         addEventsForMovingWindow();
+        updateProperties();
     }
 
     public static TimerDialog get() {
@@ -29,6 +31,16 @@ public class TimerDialog extends JDialog {
         }
 
         return timerDialog;
+    }
+
+    public void updateProperties() {
+        contentPane.setBackground(Constants.timerPanelBackground);
+        setTimerForeground(Constants.timerPanelForeground);
+        Font timerFont = new Font("Sans Serif", Font.BOLD, Constants.timerDialogFontSize);
+        label_minute.setFont(timerFont);
+        label_separator.setFont(timerFont);
+        label_second.setFont(timerFont);
+        pack();
     }
 
     public void setTime(int minute, int second) {
@@ -60,17 +72,11 @@ public class TimerDialog extends JDialog {
 
     private void initComponents() {
         setLayout(new FlowLayout());
-        JPanel contentPane = new JPanel(new FlowLayout());
-        contentPane.setBackground(Constants.timerPanelBackground);
+        contentPane = new JPanel(new FlowLayout());
 
         label_minute = new JLabel("00");
-        Font font = new Font("Sans Serif", Font.BOLD, Constants.timerDialogFontSize);
-        label_minute.setFont(font);
         label_separator = new JLabel(" : ");
-        label_separator.setFont(font);
         label_second = new JLabel("00");
-        label_second.setFont(font);
-        setForeground(Constants.timerPanelForeground);
 
         contentPane.add(label_minute);
         contentPane.add(label_separator);
@@ -86,8 +92,7 @@ public class TimerDialog extends JDialog {
         setLocation((screenSize.width / 2) - getSize().width, (screenSize.height / 2) - getSize().height);
     }
 
-    @Override
-    public void setForeground(Color foregroundColor) {
+    private void setTimerForeground(Color foregroundColor) {
         label_minute.setForeground(foregroundColor);
         label_separator.setForeground(foregroundColor);
         label_second.setForeground(foregroundColor);
