@@ -22,7 +22,7 @@ public class PomoTimer {
     private static Timer timer;
 
     private static TimerTask getTimerTask() {
-        TimerTask timerTask = new TimerTask() {
+        return new TimerTask() {
             @Override
             public void run() {
                 if (second == 0) {
@@ -38,7 +38,6 @@ public class PomoTimer {
                 TimerDialog.get().setTime(minute, second);
             }
         };
-        return timerTask;
     }
 
     public static void start(int startMinute) {
@@ -89,7 +88,7 @@ public class PomoTimer {
 
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
-        JOptionPane.showMessageDialog(dialog, Constants.MESSAGE_TIMEUP, Constants.APP_NAME, JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(dialog, Constants.MESSAGE_TIME_UP, Constants.APP_NAME, JOptionPane.WARNING_MESSAGE);
 
         if (clip != null) {
             clip.stop();

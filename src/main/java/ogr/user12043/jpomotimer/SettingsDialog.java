@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class SettingsDialog extends JDialog {
+    private static SettingsDialog settingsDialog;
+
     private JPanel contentPane;
     private JLabel label_workTime;
     private JLabel label_breakTime;
@@ -21,22 +23,34 @@ public class SettingsDialog extends JDialog {
     private JLabel label_iconTheme;
     private JRadioButton radio_iconThemeDark;
     private JRadioButton radio_iconThemeLight;
+    private JSpinner spinner_timerPanelFontSize;
+    private JLabel label_timerPanelFontSize;
 
-    public SettingsDialog() {
+    private SettingsDialog() {
         $$$setupUI$$$();
         setContentPane(contentPane);
         setModal(true);
+        setLocationByPlatform(true);
         pack();
         setMinimumSize(new Dimension(getPreferredSize().width + 10, getPreferredSize().height));
         button_timerPanelBackground.addActionListener(this::button_timerBackgroundAction);
         button_timerPanelForeground.addActionListener(this::button_timerForegroundAction);
-        button_applyDefaults.addActionListener(this::setButton_applyDefaultsAction);
+        button_applyDefaults.addActionListener(this::button_applyDefaultsAction);
+        button_apply.addActionListener(this::button_applyAction);
+    }
+
+    public static SettingsDialog get() {
+        if (settingsDialog == null) {
+            settingsDialog = new SettingsDialog();
+        }
+        return settingsDialog;
     }
 
     private void createUIComponents() {
         spinner_workTime = Utils.getSpinner(5, Integer.MAX_VALUE);
         spinner_breakTime = Utils.getSpinner(5, Integer.MAX_VALUE);
         spinner_longBreakTime = Utils.getSpinner(5, Integer.MAX_VALUE);
+        spinner_timerPanelFontSize = Utils.getSpinner(10, 70);
         radio_iconThemeDark = new JRadioButton();
         radio_iconThemeLight = new JRadioButton();
         ButtonGroup buttonGroup = new ButtonGroup();
@@ -54,10 +68,15 @@ public class SettingsDialog extends JDialog {
         button_timerPanelForeground.setBackground(selectedColor);
     }
 
-    private void setButton_applyDefaultsAction(ActionEvent event) {
+    private void button_applyAction(ActionEvent event) {
+
+    }
+
+    private void button_applyDefaultsAction(ActionEvent event) {
         spinner_workTime.setValue(25);
         spinner_breakTime.setValue(5);
         spinner_longBreakTime.setValue(15);
+        spinner_timerPanelFontSize.setValue(30);
         button_timerPanelBackground.setBackground(Color.BLACK);
         button_timerPanelForeground.setBackground(Color.WHITE);
         radio_iconThemeDark.setSelected(true);
@@ -143,7 +162,7 @@ public class SettingsDialog extends JDialog {
         label_timerPanelBackground.setText("Timer panel background: ");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 10, 20);
         panel1.add(label_timerPanelBackground, gbc);
@@ -151,7 +170,7 @@ public class SettingsDialog extends JDialog {
         label_timerPanelForeground.setText("Timer panel foreground: ");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 10, 20);
         panel1.add(label_timerPanelForeground, gbc);
@@ -159,7 +178,7 @@ public class SettingsDialog extends JDialog {
         button_timerPanelBackground.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         gbc.weightx = 6.0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -169,7 +188,7 @@ public class SettingsDialog extends JDialog {
         button_timerPanelForeground.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.weightx = 6.0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -179,20 +198,37 @@ public class SettingsDialog extends JDialog {
         label_iconTheme.setText("Icon theme: ");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 10, 20);
         panel1.add(label_iconTheme, gbc);
         radio_iconThemeDark.setText("Dark");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         panel1.add(radio_iconThemeDark, gbc);
         radio_iconThemeLight.setText("Light");
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         panel1.add(radio_iconThemeLight, gbc);
+        label_timerPanelFontSize = new JLabel();
+        label_timerPanelFontSize.setText("Timer panel fon size: ");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 0, 10, 20);
+        panel1.add(label_timerPanelFontSize, gbc);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.weightx = 6.0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 0, 10, 0);
+        panel1.add(spinner_timerPanelFontSize, gbc);
         button_applyDefaults = new JButton();
         button_applyDefaults.setText("Apply Defaults");
         gbc = new GridBagConstraints();

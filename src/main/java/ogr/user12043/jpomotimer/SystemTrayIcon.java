@@ -36,18 +36,19 @@ public class SystemTrayIcon {
     private static TrayIcon getTrayIcon() {
         if (trayIcon == null) {
             Image image;
-            File file = new File(Constants.DARK_ICON_PATH);
+            String iconPath = (Constants.iconThemeDark) ? Constants.DARK_ICON_PATH : Constants.LIGHT_ICON_PATH;
+            File file = new File(iconPath);
             if (file.exists()) {
-                image = Toolkit.getDefaultToolkit().getImage(Constants.DARK_ICON_PATH);
+                image = Toolkit.getDefaultToolkit().getImage(iconPath);
             } else {
                 try {
-                    image = ImageIO.read(SystemTrayIcon.class.getResourceAsStream("/" + Constants.DARK_ICON_PATH));
+                    image = ImageIO.read(SystemTrayIcon.class.getResourceAsStream("/" + iconPath));
                 } catch (IOException e) {
-                    System.err.println("Can not load image");
-                    image = Toolkit.getDefaultToolkit().getImage(Constants.DARK_ICON_PATH);
+                    System.err.println("Can not load tray icon image");
+                    image = Toolkit.getDefaultToolkit().getImage(iconPath);
                 }
             }
-            SystemTrayIcon.class.getResourceAsStream(Constants.DARK_ICON_PATH);
+            SystemTrayIcon.class.getResourceAsStream(iconPath);
             trayIcon = new TrayIcon(image, Constants.APP_NAME, getPopupMenu());
             trayIcon.setImageAutoSize(true);
         }
@@ -72,7 +73,7 @@ public class SystemTrayIcon {
     private static MenuItem getStartWorkItem() {
         startWorkItem = new MenuItem("Start Timer (Work)");
         startWorkItem.addActionListener(e -> {
-            PomoTimer.start(Constants.WORK_TIME);
+            PomoTimer.start(Constants.workTime);
             startWorkItem.setEnabled(false);
             startBreakItem.setEnabled(false);
             startLongBreakItem.setEnabled(false);
@@ -86,7 +87,7 @@ public class SystemTrayIcon {
     private static MenuItem getStartBreakItem() {
         startBreakItem = new MenuItem("Start Timer (Break)");
         startBreakItem.addActionListener(e -> {
-            PomoTimer.start(Constants.BREAK_TIME);
+            PomoTimer.start(Constants.breakTime);
             startWorkItem.setEnabled(false);
             startBreakItem.setEnabled(false);
             startLongBreakItem.setEnabled(false);
@@ -100,7 +101,7 @@ public class SystemTrayIcon {
     private static MenuItem getStartLongBreakItem() {
         startLongBreakItem = new MenuItem("Start Timer (Long Break)");
         startLongBreakItem.addActionListener(e -> {
-            PomoTimer.start(Constants.LONG_BREAK_TIME);
+            PomoTimer.start(Constants.longBreakTime);
             startWorkItem.setEnabled(false);
             startBreakItem.setEnabled(false);
             startLongBreakItem.setEnabled(false);
@@ -165,7 +166,7 @@ public class SystemTrayIcon {
     private static MenuItem getSettingsItem() {
         settingsItem = new MenuItem("Settings");
         settingsItem.addActionListener(e -> SwingUtilities.invokeLater(() -> {
-            new SettingsDialog().setVisible(true);
+            SettingsDialog.get().setVisible(true);
         }));
         return settingsItem;
     }
