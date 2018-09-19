@@ -70,7 +70,7 @@ public class TimerDialog extends JDialog {
         label_separator.setFont(font);
         label_second = new JLabel("00");
         label_second.setFont(font);
-        setForeground(Constants.timerPanelForeground);
+        setTimerForeground(Constants.timerPanelForeground);
 
         contentPane.add(label_minute);
         contentPane.add(label_separator);
@@ -86,8 +86,7 @@ public class TimerDialog extends JDialog {
         setLocation((screenSize.width / 2) - getSize().width, (screenSize.height / 2) - getSize().height);
     }
 
-    @Override
-    public void setForeground(Color foregroundColor) {
+    public void setTimerForeground(Color foregroundColor) {
         label_minute.setForeground(foregroundColor);
         label_separator.setForeground(foregroundColor);
         label_second.setForeground(foregroundColor);
