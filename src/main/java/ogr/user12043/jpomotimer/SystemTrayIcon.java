@@ -1,6 +1,7 @@
 package ogr.user12043.jpomotimer;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class SystemTrayIcon {
     private static MenuItem resumeItem;
     private static MenuItem stopItem;
     private static MenuItem showTimerItem;
-    private static Menu settingsItem;
+    private static MenuItem settingsItem;
     private static MenuItem exitItem;
 
     private SystemTrayIcon() {
@@ -161,9 +162,11 @@ public class SystemTrayIcon {
         return showTimerItem;
     }
 
-    private static Menu getSettingsItem() {
-        settingsItem = new Menu("Settings");
-        settingsItem.addActionListener(e -> System.out.println());
+    private static MenuItem getSettingsItem() {
+        settingsItem = new MenuItem("Settings");
+        settingsItem.addActionListener(e -> SwingUtilities.invokeLater(() -> {
+            new SettingsDialog().setVisible(true);
+        }));
         return settingsItem;
     }
 

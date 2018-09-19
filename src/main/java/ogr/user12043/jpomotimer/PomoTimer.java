@@ -87,7 +87,9 @@ public class PomoTimer {
             clip.start();
         }
 
-        JOptionPane.showMessageDialog(null, Constants.MESSAGE_TIMEUP, Constants.APP_NAME, JOptionPane.WARNING_MESSAGE);
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        JOptionPane.showMessageDialog(dialog, Constants.MESSAGE_TIMEUP, Constants.APP_NAME, JOptionPane.WARNING_MESSAGE);
 
         if (clip != null) {
             clip.stop();

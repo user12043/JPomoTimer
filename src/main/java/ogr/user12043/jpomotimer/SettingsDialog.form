@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ogr.user12043.jpomotimer.SettingsDialog">
+  <grid id="cbd77" binding="contentPane" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="48" y="54" width="540" height="326"/>
+    </constraints>
+    <properties>
+      <minimumSize width="540" height="290"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="e3588" layout-manager="GridBagLayout">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="20" left="10" bottom="0" right="10" weightx="1.0" weighty="1.0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="4e3a0" class="javax.swing.JLabel" binding="label_workTime">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="20" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Work time: "/>
+            </properties>
+          </component>
+          <component id="d71a1" class="javax.swing.JLabel" binding="label_breakTime">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="20" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Break time: "/>
+            </properties>
+          </component>
+          <component id="72a76" class="javax.swing.JLabel" binding="label_longBreakTime">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="20" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Long break time: "/>
+            </properties>
+          </component>
+          <component id="48f" class="javax.swing.JSpinner" binding="spinner_workTime" custom-create="true">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="0" weightx="6.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="38e3f" class="javax.swing.JSpinner" binding="spinner_breakTime" custom-create="true">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="0" weightx="6.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="b15a3" class="javax.swing.JSpinner" binding="spinner_longBreakTime" custom-create="true">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="0" weightx="6.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="f74c5" class="javax.swing.JLabel" binding="label_timerPanelBackground">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="20" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Timer panel background: "/>
+            </properties>
+          </component>
+          <component id="abf75" class="javax.swing.JLabel" binding="label_timerPanelForeground">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="20" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Timer panel foreground: "/>
+            </properties>
+          </component>
+          <component id="abe5c" class="javax.swing.JButton" binding="button_timerPanelBackground">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="0" weightx="6.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="e0485" class="javax.swing.JButton" binding="button_timerPanelForeground">
+            <constraints>
+              <grid row="5" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="0" weightx="6.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="1a9c5" class="javax.swing.JLabel" binding="label_iconTheme">
+            <constraints>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="10" right="20" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Icon theme: "/>
+            </properties>
+          </component>
+          <component id="215a4" class="javax.swing.JRadioButton" binding="radio_iconThemeDark" custom-create="true">
+            <constraints>
+              <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Dark"/>
+            </properties>
+          </component>
+          <component id="5cca2" class="javax.swing.JRadioButton" binding="radio_iconThemeLight" custom-create="true">
+            <constraints>
+              <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Light"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="3f7da" class="javax.swing.JButton" binding="button_applyDefaults">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="20" right="0" weightx="1.0" weighty="1.0"/>
+        </constraints>
+        <properties>
+          <text value="Apply Defaults"/>
+        </properties>
+      </component>
+      <component id="d300d" class="javax.swing.JButton" binding="button_apply">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="20" right="0" weightx="1.0" weighty="1.0"/>
+        </constraints>
+        <properties>
+          <text value="Apply"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
