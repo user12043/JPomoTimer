@@ -11,6 +11,8 @@ import java.awt.*;
  */
 public class Main {
     public static void main(String[] args) {
+        Utils.loadSettings();
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

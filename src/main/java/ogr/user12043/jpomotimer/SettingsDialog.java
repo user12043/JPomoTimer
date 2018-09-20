@@ -90,6 +90,7 @@ public class SettingsDialog extends JDialog {
         Constants.iconThemeDark = radio_iconThemeDark.isSelected();
         TimerDialog.get().updateProperties();
         SystemTrayIcon.updateIconImage();
+        Utils.updateSettings();
     }
 
     private void button_setDefaultsAction(ActionEvent event) {

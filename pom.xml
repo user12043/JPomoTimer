@@ -16,7 +16,16 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
+    <json-version>20180813</json-version>
   </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>${json-version}</version>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
