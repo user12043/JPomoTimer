@@ -59,6 +59,9 @@ public class Utils {
     public static void loadSettings() {
         try {
             String fileContent = readSettingsFile();
+            if (fileContent.isEmpty()) {
+                return;
+            }
             JSONObject jsonObject = new JSONObject(fileContent);
             if (jsonObject.has("timerPanelBackground")) {
                 Constants.timerPanelBackground = new Color(jsonObject.getInt("timerPanelBackground"));
@@ -83,7 +86,6 @@ public class Utils {
             }
         } catch (IOException | JSONException e) {
             System.err.println("Failed to read settings file. Using default settings.");
-            e.printStackTrace();
         }
     }
 
