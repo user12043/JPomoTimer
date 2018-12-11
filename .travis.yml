@@ -1,0 +1,8 @@
+language: java
+java:
+  - 1.8
+git:
+  depth: 3
+branches: 
+  only:
+  - master
