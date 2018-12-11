@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/user12043/JPomoTimer.svg?branch=master)](https://travis-ci.org/user12043/JPomoTimer)
+
 # JPomoTimer
 
 ![Icon](https://raw.githubusercontent.com/user12043/JPomoTimer/master/src/main/resources/res/pomodoroIcon-dark.png)
