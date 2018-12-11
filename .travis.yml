@@ -1,6 +1,9 @@
 language: java
-java:
-  - 1.8
+jdk: 
+  - oraclejdk8
+  - openjdk8
+  - oraclejdk10
+  - openjdk10
 git:
   depth: 3
 branches: 
