@@ -25,6 +25,7 @@ public class SettingsDialog extends JDialog {
     private JRadioButton radio_iconThemeLight;
     private JSpinner spinner_timerPanelFontSize;
     private JLabel label_timerPanelFontSize;
+    private JCheckBox checkbox_continuousMode;
 
     private SettingsDialog() {
         $$$setupUI$$$();
@@ -48,9 +49,9 @@ public class SettingsDialog extends JDialog {
     }
 
     private void createUIComponents() {
-        spinner_workTime = Utils.getSpinner(5, Integer.MAX_VALUE);
-        spinner_breakTime = Utils.getSpinner(5, Integer.MAX_VALUE);
-        spinner_longBreakTime = Utils.getSpinner(5, Integer.MAX_VALUE);
+        spinner_workTime = Utils.getSpinner(1, Integer.MAX_VALUE);
+        spinner_breakTime = Utils.getSpinner(1, Integer.MAX_VALUE);
+        spinner_longBreakTime = Utils.getSpinner(1, Integer.MAX_VALUE);
         spinner_timerPanelFontSize = Utils.getSpinner(10, 150);
         radio_iconThemeDark = new JRadioButton();
         radio_iconThemeLight = new JRadioButton();
@@ -68,6 +69,7 @@ public class SettingsDialog extends JDialog {
         button_timerPanelForeground.setBackground(Constants.timerPanelForeground);
         radio_iconThemeDark.setSelected(Constants.iconThemeDark);
         radio_iconThemeLight.setSelected(!Constants.iconThemeDark);
+        checkbox_continuousMode.setSelected(Constants.continuousMode);
     }
 
     private void button_timerBackgroundAction(ActionEvent event) {
@@ -88,6 +90,7 @@ public class SettingsDialog extends JDialog {
         Constants.timerPanelBackground = button_timerPanelBackground.getBackground();
         Constants.timerPanelForeground = button_timerPanelForeground.getBackground();
         Constants.iconThemeDark = radio_iconThemeDark.isSelected();
+        Constants.continuousMode = checkbox_continuousMode.isSelected();
         TimerDialog.get().updateProperties();
         SystemTrayIcon.updateIconImage();
         Utils.updateSettings();
@@ -234,7 +237,7 @@ public class SettingsDialog extends JDialog {
         gbc.gridy = 7;
         panel1.add(radio_iconThemeLight, gbc);
         label_timerPanelFontSize = new JLabel();
-        label_timerPanelFontSize.setText("Timer panel fon size: ");
+        label_timerPanelFontSize.setText("Timer panel font size: ");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 4;
@@ -250,6 +253,14 @@ public class SettingsDialog extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 10, 0);
         panel1.add(spinner_timerPanelFontSize, gbc);
+        checkbox_continuousMode = new JCheckBox();
+        checkbox_continuousMode.setText("Continuous Mode");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 8;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel1.add(checkbox_continuousMode, gbc);
         button_setDefaults = new JButton();
         button_setDefaults.setText("Apply Defaults");
         gbc = new GridBagConstraints();
@@ -276,4 +287,5 @@ public class SettingsDialog extends JDialog {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
+
 }

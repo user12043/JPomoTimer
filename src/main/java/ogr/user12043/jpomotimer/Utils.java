@@ -84,6 +84,9 @@ public class Utils {
             if (jsonObject.has("iconThemeDark")) {
                 Constants.iconThemeDark = jsonObject.getBoolean("iconThemeDark");
             }
+            if (jsonObject.has("continuousMode")) {
+                Constants.continuousMode = jsonObject.getBoolean("continuousMode");
+            }
         } catch (IOException | JSONException e) {
             System.err.println("Failed to read settings file. Using default settings.");
         }
@@ -99,6 +102,7 @@ public class Utils {
             jsonObject.putOnce("breakTime", Constants.breakTime);
             jsonObject.putOnce("longBreakTime", Constants.longBreakTime);
             jsonObject.putOnce("iconThemeDark", Constants.iconThemeDark);
+            jsonObject.putOnce("continuousMode", Constants.continuousMode);
             Writer writer = jsonObject.write(new FileWriter(Constants.SETTINGS_FILE), 2, 0);
             writer.close();
         } catch (IOException e) {

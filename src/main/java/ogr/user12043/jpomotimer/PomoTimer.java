@@ -2,11 +2,8 @@ package ogr.user12043.jpomotimer;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,7 +41,7 @@ public class PomoTimer {
         System.out.println("starting timer for " + startMinute + " minute");
         minute = startMinute;
         timer = new Timer(true);
-        timer.scheduleAtFixedRate(getTimerTask(), 0, 1000);
+        timer.scheduleAtFixedRate(getTimerTask(), 0, 200);
     }
 
     public static void pause() {
@@ -77,13 +74,12 @@ public class PomoTimer {
             } else {
                 clip.open(AudioSystem.getAudioInputStream(PomoTimer.class.getResource("/" + Constants.ALERT_SOUND_PATH)));
             }
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+
+            clip.start();
+        } catch (Exception e) {
             System.err.println("Can not play sound!");
             e.printStackTrace();
-        }
-
-        if (clip != null) {
-            clip.start();
+            JOptionPane.showMessageDialog(null, "could not play sound:\n" + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         final JDialog dialog = new JDialog();
@@ -92,6 +88,28 @@ public class PomoTimer {
 
         if (clip != null) {
             clip.stop();
+            clip.flush();
+        }
+
+
+        timer.cancel();
+        if (Constants.continuousMode) {
+            if (SystemTrayIcon.working) {
+                // break
+                if (SystemTrayIcon.worked == 4) {
+                    // if 4 pomodoro passed
+                    SystemTrayIcon.worked = 0;
+                    start(Constants.longBreakTime);
+                    SystemTrayIcon.startedLongBreak();
+                } else {
+                    start(Constants.breakTime);
+                    SystemTrayIcon.startedBreak();
+                }
+            } else {
+                // start work
+                start(Constants.workTime);
+                SystemTrayIcon.startedWork();
+            }
         }
     }
 }

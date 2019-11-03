@@ -13,6 +13,8 @@ import java.io.IOException;
  * @author user12043
  */
 public class SystemTrayIcon {
+    public static boolean working;
+    public static int worked = 0;
     private static TrayIcon trayIcon;
     private static MenuItem startWorkItem;
     private static MenuItem startBreakItem;
@@ -82,12 +84,7 @@ public class SystemTrayIcon {
         startWorkItem = new MenuItem("Start Timer (Work)");
         startWorkItem.addActionListener(e -> {
             PomoTimer.start(Constants.workTime);
-            startWorkItem.setEnabled(false);
-            startBreakItem.setEnabled(false);
-            startLongBreakItem.setEnabled(false);
-            stopItem.setEnabled(true);
-            pauseItem.setEnabled(true);
-            resumeItem.setEnabled(false);
+            startedWork();
         });
         return startWorkItem;
     }
@@ -96,12 +93,7 @@ public class SystemTrayIcon {
         startBreakItem = new MenuItem("Start Timer (Break)");
         startBreakItem.addActionListener(e -> {
             PomoTimer.start(Constants.breakTime);
-            startWorkItem.setEnabled(false);
-            startBreakItem.setEnabled(false);
-            startLongBreakItem.setEnabled(false);
-            stopItem.setEnabled(true);
-            pauseItem.setEnabled(true);
-            resumeItem.setEnabled(false);
+            startedBreak();
         });
         return startBreakItem;
     }
@@ -110,12 +102,7 @@ public class SystemTrayIcon {
         startLongBreakItem = new MenuItem("Start Timer (Long Break)");
         startLongBreakItem.addActionListener(e -> {
             PomoTimer.start(Constants.longBreakTime);
-            startWorkItem.setEnabled(false);
-            startBreakItem.setEnabled(false);
-            startLongBreakItem.setEnabled(false);
-            stopItem.setEnabled(true);
-            pauseItem.setEnabled(true);
-            resumeItem.setEnabled(false);
+            startedLongBreak();
         });
         return startLongBreakItem;
     }
@@ -183,6 +170,36 @@ public class SystemTrayIcon {
         exitItem = new MenuItem("Exit");
         exitItem.addActionListener(e -> System.exit(0));
         return exitItem;
+    }
+
+    public static void startedWork() {
+        startWorkItem.setEnabled(false);
+        startBreakItem.setEnabled(false);
+        startLongBreakItem.setEnabled(false);
+        stopItem.setEnabled(true);
+        pauseItem.setEnabled(true);
+        resumeItem.setEnabled(false);
+        working = true;
+    }
+
+    public static void startedBreak() {
+        startWorkItem.setEnabled(false);
+        startBreakItem.setEnabled(false);
+        startLongBreakItem.setEnabled(false);
+        stopItem.setEnabled(true);
+        pauseItem.setEnabled(true);
+        resumeItem.setEnabled(false);
+        working = false;
+    }
+
+    public static void startedLongBreak() {
+        startWorkItem.setEnabled(false);
+        startBreakItem.setEnabled(false);
+        startLongBreakItem.setEnabled(false);
+        stopItem.setEnabled(true);
+        pauseItem.setEnabled(true);
+        resumeItem.setEnabled(false);
+        working = false;
     }
 
     public static void stopped() {
