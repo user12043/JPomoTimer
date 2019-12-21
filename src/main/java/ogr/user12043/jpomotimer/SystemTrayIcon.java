@@ -149,20 +149,14 @@ public class SystemTrayIcon {
         showTimerItem.addActionListener(e -> {
             final boolean state = TimerDialog.get().isVisible();
             TimerDialog.get().setVisible(!state);
-            if (state) {
-                showTimerItem.setLabel("Show timer dialog");
-            } else {
-                showTimerItem.setLabel("Hide timer dialog");
-            }
+            showTimerItem.setLabel((state ? "Show" : "Hide") + " timer dialog");
         });
         return showTimerItem;
     }
 
     private static MenuItem getSettingsItem() {
         settingsItem = new MenuItem("Settings");
-        settingsItem.addActionListener(e -> SwingUtilities.invokeLater(() -> {
-            SettingsDialog.get().setVisible(true);
-        }));
+        settingsItem.addActionListener(e -> SwingUtilities.invokeLater(() -> SettingsDialog.get().setVisible(true)));
         return settingsItem;
     }
 
@@ -180,6 +174,7 @@ public class SystemTrayIcon {
         pauseItem.setEnabled(true);
         resumeItem.setEnabled(false);
         working = true;
+        worked++;
     }
 
     public static void startedBreak() {
@@ -209,5 +204,26 @@ public class SystemTrayIcon {
         startWorkItem.setEnabled(true);
         startBreakItem.setEnabled(true);
         startLongBreakItem.setEnabled(true);
+    }
+
+    public static void onTimeUp() {
+        if (Constants.continuousMode) {
+            if (working) {
+                // break
+                if (worked == 4) {
+                    // if 4 pomodoro passed
+                    worked = 0;
+                    SwingUtilities.invokeLater(() -> PomoTimer.start(Constants.longBreakTime));
+                    startedLongBreak();
+                } else {
+                    SwingUtilities.invokeLater(() -> PomoTimer.start(Constants.breakTime));
+                    startedBreak();
+                }
+            } else {
+                // start work
+                SwingUtilities.invokeLater(() -> PomoTimer.start(Constants.workTime));
+                startedWork();
+            }
+        }
     }
 }

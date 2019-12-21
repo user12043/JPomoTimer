@@ -4,8 +4,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.io.File;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created on 11.09.2018 - 16:46
@@ -14,52 +15,66 @@ import java.util.TimerTask;
  * @author user12043
  */
 public class PomoTimer {
-    private static int minute = 0;
-    private static int second = 0;
-    private static Timer timer;
+    private static volatile int minute = 0;
+    private static volatile int second = 0;
+    private static Thread timerTask;
+    private static ScheduledExecutorService service;
 
-    private static TimerTask getTimerTask() {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                if (second == 0) {
-                    if (minute == 0) {
-                        timeUp();
-                    } else {
-                        second = 59;
-                        minute--;
-                    }
+    private static Thread getTimerTask() {
+//        if (timerTask == null) {
+        timerTask = new Thread(() -> {
+            int currentMinute = minute;
+            int currentSecond = second;
+
+            if (second == 0) {
+                if (minute == 0) {
+                    timeUp();
                 } else {
-                    second--;
+                    second = 59;
+                    minute = currentMinute - 1;
                 }
-                TimerDialog.get().setTime(minute, second);
+            } else {
+                second = currentSecond - 1;
             }
-        };
+            TimerDialog.get().setTime(minute, second);
+        });
+//        }
+        return timerTask;
+    }
+
+    private static ScheduledExecutorService getService() {
+        if (service == null || service.isTerminated() || service.isShutdown()) {
+            service = new ScheduledThreadPoolExecutor(1);
+        }
+        return service;
     }
 
     public static void start(int startMinute) {
-        System.out.println("starting timer for " + startMinute + " minute");
+        System.out.println("starting timer for " + startMinute + " minutes");
         minute = startMinute;
-        timer = new Timer(true);
-        timer.scheduleAtFixedRate(getTimerTask(), 0, 200);
+        getService().scheduleAtFixedRate(getTimerTask(), 0L, 1L, TimeUnit.SECONDS);
+//        timer = new Timer(true);
+//        timer.scheduleAtFixedRate(getTimerTask(), 0, 200);
     }
 
     public static void pause() {
         System.out.println("pausing timer");
-        timer.cancel();
+//        timer.cancel();
+        getService().shutdown();
+    }
+
+    public static void stop() {
+        System.out.println("stopping timer");
+//        timer.cancel();
+        getService().shutdown();
+        minute = 0;
+        second = 0;
+        TimerDialog.get().setTime(minute, second);
     }
 
     public static void resume() {
         System.out.println("resuming timer");
         start(minute);
-    }
-
-    public static void stop() {
-        System.out.println("stopping timer");
-        timer.cancel();
-        minute = 0;
-        second = 0;
-        TimerDialog.get().setTime(minute, second);
     }
 
     public static void timeUp() {
@@ -91,25 +106,6 @@ public class PomoTimer {
             clip.flush();
         }
 
-
-        timer.cancel();
-        if (Constants.continuousMode) {
-            if (SystemTrayIcon.working) {
-                // break
-                if (SystemTrayIcon.worked == 4) {
-                    // if 4 pomodoro passed
-                    SystemTrayIcon.worked = 0;
-                    start(Constants.longBreakTime);
-                    SystemTrayIcon.startedLongBreak();
-                } else {
-                    start(Constants.breakTime);
-                    SystemTrayIcon.startedBreak();
-                }
-            } else {
-                // start work
-                start(Constants.workTime);
-                SystemTrayIcon.startedWork();
-            }
-        }
+        SystemTrayIcon.onTimeUp();
     }
 }
