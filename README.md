@@ -7,12 +7,15 @@
 > <div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
 
-Simple pomodoro timer application with Java displaying on system tray.
+Simple pomodoro timer application with Java running on system tray.
 
-#### Features (not many yet :)
-- Displays timer on the screen (can be hidden)
+#### Features
+- Displays timer anywhere on the screen (can be hidden)
 - Displays warning message and plays sound on time up
 - Can pause/resume the timer
+- Continuous mode. Auto start timer from proprietary value after work and break
+- Customizable minutes for work, break and long break
+- Customizable timer colors
 <hr>
 
 ### Build and Run
