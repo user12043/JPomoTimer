@@ -176,7 +176,7 @@ public class SystemTrayIcon {
         working = true;
 
         worked++;
-        startWorkItem.setLabel(startWorkItem.getLabel() + " (worked " + worked + " times)");
+        startWorkItem.setLabel("Start Work" + " (worked " + worked + " times)");
     }
 
     public static void startedBreak() {
