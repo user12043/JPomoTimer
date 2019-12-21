@@ -23,7 +23,8 @@ public class Main {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                } else if ("CDE/Motif".equals(info.getName())) {
+                }
+                if ("CDE/Motif".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
