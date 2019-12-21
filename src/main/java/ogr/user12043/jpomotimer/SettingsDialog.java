@@ -255,6 +255,7 @@ public class SettingsDialog extends JDialog {
         panel1.add(spinner_timerPanelFontSize, gbc);
         checkbox_continuousMode = new JCheckBox();
         checkbox_continuousMode.setText("Continuous Mode");
+        checkbox_continuousMode.setToolTipText("Automatically start the break time after work, start work after break");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 8;

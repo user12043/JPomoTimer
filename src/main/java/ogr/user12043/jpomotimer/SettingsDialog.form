@@ -150,7 +150,8 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Continuous Mode"/>
+              <text value="Continuous Mode" noi18n="true"/>
+              <toolTipText value="Automatically start the break time after work, start work after break" noi18n="true"/>
             </properties>
           </component>
         </children>

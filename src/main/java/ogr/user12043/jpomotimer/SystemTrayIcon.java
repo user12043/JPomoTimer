@@ -81,7 +81,7 @@ public class SystemTrayIcon {
     }
 
     private static MenuItem getStartWorkItem() {
-        startWorkItem = new MenuItem("Start Timer (Work)");
+        startWorkItem = new MenuItem("Start Work (worked 0 times)");
         startWorkItem.addActionListener(e -> {
             PomoTimer.start(Constants.workTime);
             startedWork();
@@ -90,7 +90,7 @@ public class SystemTrayIcon {
     }
 
     private static MenuItem getStartBreakItem() {
-        startBreakItem = new MenuItem("Start Timer (Break)");
+        startBreakItem = new MenuItem("Start Break");
         startBreakItem.addActionListener(e -> {
             PomoTimer.start(Constants.breakTime);
             startedBreak();
@@ -99,7 +99,7 @@ public class SystemTrayIcon {
     }
 
     private static MenuItem getStartLongBreakItem() {
-        startLongBreakItem = new MenuItem("Start Timer (Long Break)");
+        startLongBreakItem = new MenuItem("Start Long Break");
         startLongBreakItem.addActionListener(e -> {
             PomoTimer.start(Constants.longBreakTime);
             startedLongBreak();
@@ -174,7 +174,9 @@ public class SystemTrayIcon {
         pauseItem.setEnabled(true);
         resumeItem.setEnabled(false);
         working = true;
+
         worked++;
+        startWorkItem.setLabel(startWorkItem.getLabel() + " (worked " + worked + " times)");
     }
 
     public static void startedBreak() {
