@@ -199,7 +199,7 @@ public class SettingsDialog extends JDialog {
         gbc.insets = new Insets(0, 0, 10, 20);
         panel1.add(label_timerPanelForeground, gbc);
         button_timerPanelBackground = new JButton();
-        button_timerPanelBackground.setText("");
+        button_timerPanelBackground.setText(" ");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 5;
@@ -209,7 +209,7 @@ public class SettingsDialog extends JDialog {
         gbc.insets = new Insets(0, 0, 10, 0);
         panel1.add(button_timerPanelBackground, gbc);
         button_timerPanelForeground = new JButton();
-        button_timerPanelForeground.setText("");
+        button_timerPanelForeground.setText(" ");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 6;

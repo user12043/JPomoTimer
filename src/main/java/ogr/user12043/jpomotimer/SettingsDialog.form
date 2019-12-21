@@ -89,7 +89,7 @@
               <gridbag top="0" left="0" bottom="10" right="0" weightx="6.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value=""/>
+              <text value=" "/>
             </properties>
           </component>
           <component id="e0485" class="javax.swing.JButton" binding="button_timerPanelForeground">
@@ -98,7 +98,7 @@
               <gridbag top="0" left="0" bottom="10" right="0" weightx="6.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value=""/>
+              <text value=" "/>
             </properties>
           </component>
           <component id="1a9c5" class="javax.swing.JLabel" binding="label_iconTheme">
