@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
  */
 public class TimerDialog extends JDialog {
     private static TimerDialog timerDialog;
-    private JPanel contentPane;
+    private JPanel timePane;
     private JLabel label_minute;
     private JLabel label_separator;
     private JLabel label_second;
@@ -34,7 +34,7 @@ public class TimerDialog extends JDialog {
     }
 
     public void updateProperties() {
-        contentPane.setBackground(Properties.timerPanelBackground);
+        timePane.setBackground(Properties.timerPanelBackground);
         setTimerForeground(Properties.timerPanelForeground);
         Font timerFont = new Font("Sans Serif", Font.BOLD, Properties.timerDialogFontSize);
         label_minute.setFont(timerFont);
@@ -55,6 +55,15 @@ public class TimerDialog extends JDialog {
                 mouseClickPoint = e.getPoint();
             }
 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                TimerDialog.this.mouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                TimerDialog.this.mouseExited(e);
+            }
         });
         addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -64,23 +73,40 @@ public class TimerDialog extends JDialog {
         });
     }
 
+    private void setTimerForeground(Color foregroundColor) {
+        label_minute.setForeground(foregroundColor);
+        label_separator.setForeground(foregroundColor);
+        label_second.setForeground(foregroundColor);
+    }
+
     public void mouseDragged(MouseEvent event) {
         Point newPoint = event.getLocationOnScreen();
         newPoint.translate(-mouseClickPoint.x, -mouseClickPoint.y);
         setLocation(newPoint);
     }
 
+    public void mouseEntered(MouseEvent event) {
+        System.out.println("HA");
+    }
+
+    public void mouseExited(MouseEvent event) {
+        System.out.println("HE");
+    }
+
     private void initComponents() {
         setLayout(new FlowLayout());
-        contentPane = new JPanel(new FlowLayout());
+        JPanel contentPane = new JPanel(new BorderLayout());
+        timePane = new JPanel(new FlowLayout());
 
         label_minute = new JLabel("00");
         label_separator = new JLabel(" : ");
         label_second = new JLabel("00");
 
-        contentPane.add(label_minute);
-        contentPane.add(label_separator);
-        contentPane.add(label_second);
+        timePane.add(label_minute);
+        timePane.add(label_separator);
+        timePane.add(label_second);
+
+        contentPane.add(timePane, BorderLayout.CENTER);
 
         setContentPane(contentPane);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -91,11 +117,5 @@ public class TimerDialog extends JDialog {
         // place center of the screen
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screenSize.width / 2) - getSize().width, (screenSize.height / 2) - getSize().height);
-    }
-
-    private void setTimerForeground(Color foregroundColor) {
-        label_minute.setForeground(foregroundColor);
-        label_separator.setForeground(foregroundColor);
-        label_second.setForeground(foregroundColor);
     }
 }
