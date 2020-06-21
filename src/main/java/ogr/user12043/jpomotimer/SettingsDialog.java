@@ -61,15 +61,15 @@ public class SettingsDialog extends JDialog {
     }
 
     private void setValues() {
-        spinner_workTime.setValue(Constants.workTime);
-        spinner_breakTime.setValue(Constants.breakTime);
-        spinner_longBreakTime.setValue(Constants.longBreakTime);
-        spinner_timerPanelFontSize.setValue(Constants.timerDialogFontSize);
-        button_timerPanelBackground.setBackground(Constants.timerPanelBackground);
-        button_timerPanelForeground.setBackground(Constants.timerPanelForeground);
-        radio_iconThemeDark.setSelected(Constants.iconThemeDark);
-        radio_iconThemeLight.setSelected(!Constants.iconThemeDark);
-        checkbox_continuousMode.setSelected(Constants.continuousMode);
+        spinner_workTime.setValue(Properties.workTime);
+        spinner_breakTime.setValue(Properties.breakTime);
+        spinner_longBreakTime.setValue(Properties.longBreakTime);
+        spinner_timerPanelFontSize.setValue(Properties.timerDialogFontSize);
+        button_timerPanelBackground.setBackground(Properties.timerPanelBackground);
+        button_timerPanelForeground.setBackground(Properties.timerPanelForeground);
+        radio_iconThemeDark.setSelected(Properties.iconThemeDark);
+        radio_iconThemeLight.setSelected(!Properties.iconThemeDark);
+        checkbox_continuousMode.setSelected(Properties.continuousMode);
     }
 
     private void button_timerBackgroundAction(ActionEvent event) {
@@ -83,14 +83,14 @@ public class SettingsDialog extends JDialog {
     }
 
     private void button_applyAction(ActionEvent event) {
-        Constants.workTime = (int) spinner_workTime.getValue();
-        Constants.breakTime = (int) spinner_breakTime.getValue();
-        Constants.longBreakTime = (int) spinner_longBreakTime.getValue();
-        Constants.timerDialogFontSize = (int) spinner_timerPanelFontSize.getValue();
-        Constants.timerPanelBackground = button_timerPanelBackground.getBackground();
-        Constants.timerPanelForeground = button_timerPanelForeground.getBackground();
-        Constants.iconThemeDark = radio_iconThemeDark.isSelected();
-        Constants.continuousMode = checkbox_continuousMode.isSelected();
+        Properties.workTime = (int) spinner_workTime.getValue();
+        Properties.breakTime = (int) spinner_breakTime.getValue();
+        Properties.longBreakTime = (int) spinner_longBreakTime.getValue();
+        Properties.timerDialogFontSize = (int) spinner_timerPanelFontSize.getValue();
+        Properties.timerPanelBackground = button_timerPanelBackground.getBackground();
+        Properties.timerPanelForeground = button_timerPanelForeground.getBackground();
+        Properties.iconThemeDark = radio_iconThemeDark.isSelected();
+        Properties.continuousMode = checkbox_continuousMode.isSelected();
         TimerDialog.get().updateProperties();
         SystemTrayIcon.updateIconImage();
         Utils.updateSettings();

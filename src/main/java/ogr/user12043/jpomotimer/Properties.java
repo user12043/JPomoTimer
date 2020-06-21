@@ -8,7 +8,7 @@ import java.awt.*;
  *
  * @author user12043
  */
-class Constants {
+class Properties {
     public static final String APP_NAME = "JPomoTimer";
     public static final String SETTINGS_FILE = "settings.json";
     public static final String DARK_ICON_PATH = "res/pomodoroIcon-dark.png";

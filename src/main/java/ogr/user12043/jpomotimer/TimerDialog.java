@@ -34,9 +34,9 @@ public class TimerDialog extends JDialog {
     }
 
     public void updateProperties() {
-        contentPane.setBackground(Constants.timerPanelBackground);
-        setTimerForeground(Constants.timerPanelForeground);
-        Font timerFont = new Font("Sans Serif", Font.BOLD, Constants.timerDialogFontSize);
+        contentPane.setBackground(Properties.timerPanelBackground);
+        setTimerForeground(Properties.timerPanelForeground);
+        Font timerFont = new Font("Sans Serif", Font.BOLD, Properties.timerDialogFontSize);
         label_minute.setFont(timerFont);
         label_separator.setFont(timerFont);
         label_second.setFont(timerFont);
@@ -88,6 +88,7 @@ public class TimerDialog extends JDialog {
         setUndecorated(true);
         setResizable(false);
         pack();
+        // place center of the screen
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screenSize.width / 2) - getSize().width, (screenSize.height / 2) - getSize().height);
     }

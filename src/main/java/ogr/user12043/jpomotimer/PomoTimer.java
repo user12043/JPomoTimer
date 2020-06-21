@@ -83,11 +83,11 @@ public class PomoTimer {
         Clip clip = null;
         try {
             clip = AudioSystem.getClip();
-            File file = new File(Constants.ALERT_SOUND_PATH);
+            File file = new File(Properties.ALERT_SOUND_PATH);
             if (file.exists()) {
                 clip.open(AudioSystem.getAudioInputStream(file));
             } else {
-                clip.open(AudioSystem.getAudioInputStream(PomoTimer.class.getResource("/" + Constants.ALERT_SOUND_PATH)));
+                clip.open(AudioSystem.getAudioInputStream(PomoTimer.class.getResource("/" + Properties.ALERT_SOUND_PATH)));
             }
 
             clip.start();
@@ -99,7 +99,7 @@ public class PomoTimer {
 
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
-        JOptionPane.showMessageDialog(dialog, Constants.MESSAGE_TIME_UP, Constants.APP_NAME, JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(dialog, Properties.MESSAGE_TIME_UP, Properties.APP_NAME, JOptionPane.WARNING_MESSAGE);
 
         if (clip != null) {
             clip.stop();

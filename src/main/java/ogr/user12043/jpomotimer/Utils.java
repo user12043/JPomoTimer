@@ -64,28 +64,28 @@ public class Utils {
             }
             JSONObject jsonObject = new JSONObject(fileContent);
             if (jsonObject.has("timerPanelBackground")) {
-                Constants.timerPanelBackground = new Color(jsonObject.getInt("timerPanelBackground"));
+                Properties.timerPanelBackground = new Color(jsonObject.getInt("timerPanelBackground"));
             }
             if (jsonObject.has("timerPanelForeground")) {
-                Constants.timerPanelForeground = new Color(jsonObject.getInt("timerPanelForeground"));
+                Properties.timerPanelForeground = new Color(jsonObject.getInt("timerPanelForeground"));
             }
             if (jsonObject.has("timerDialogFontSize")) {
-                Constants.timerDialogFontSize = jsonObject.getInt("timerDialogFontSize");
+                Properties.timerDialogFontSize = jsonObject.getInt("timerDialogFontSize");
             }
             if (jsonObject.has("workTime")) {
-                Constants.workTime = jsonObject.getInt("workTime");
+                Properties.workTime = jsonObject.getInt("workTime");
             }
             if (jsonObject.has("breakTime")) {
-                Constants.breakTime = jsonObject.getInt("breakTime");
+                Properties.breakTime = jsonObject.getInt("breakTime");
             }
             if (jsonObject.has("longBreakTime")) {
-                Constants.longBreakTime = jsonObject.getInt("longBreakTime");
+                Properties.longBreakTime = jsonObject.getInt("longBreakTime");
             }
             if (jsonObject.has("iconThemeDark")) {
-                Constants.iconThemeDark = jsonObject.getBoolean("iconThemeDark");
+                Properties.iconThemeDark = jsonObject.getBoolean("iconThemeDark");
             }
             if (jsonObject.has("continuousMode")) {
-                Constants.continuousMode = jsonObject.getBoolean("continuousMode");
+                Properties.continuousMode = jsonObject.getBoolean("continuousMode");
             }
         } catch (IOException | JSONException e) {
             System.err.println("Failed to read settings file. Using default settings.");
@@ -95,15 +95,15 @@ public class Utils {
     public static void updateSettings() {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.putOnce("timerPanelBackground", Constants.timerPanelBackground.getRGB());
-            jsonObject.putOnce("timerPanelForeground", Constants.timerPanelForeground.getRGB());
-            jsonObject.putOnce("timerDialogFontSize", Constants.timerDialogFontSize);
-            jsonObject.putOnce("workTime", Constants.workTime);
-            jsonObject.putOnce("breakTime", Constants.breakTime);
-            jsonObject.putOnce("longBreakTime", Constants.longBreakTime);
-            jsonObject.putOnce("iconThemeDark", Constants.iconThemeDark);
-            jsonObject.putOnce("continuousMode", Constants.continuousMode);
-            Writer writer = jsonObject.write(new FileWriter(Constants.SETTINGS_FILE), 2, 0);
+            jsonObject.putOnce("timerPanelBackground", Properties.timerPanelBackground.getRGB());
+            jsonObject.putOnce("timerPanelForeground", Properties.timerPanelForeground.getRGB());
+            jsonObject.putOnce("timerDialogFontSize", Properties.timerDialogFontSize);
+            jsonObject.putOnce("workTime", Properties.workTime);
+            jsonObject.putOnce("breakTime", Properties.breakTime);
+            jsonObject.putOnce("longBreakTime", Properties.longBreakTime);
+            jsonObject.putOnce("iconThemeDark", Properties.iconThemeDark);
+            jsonObject.putOnce("continuousMode", Properties.continuousMode);
+            Writer writer = jsonObject.write(new FileWriter(Properties.SETTINGS_FILE), 2, 0);
             writer.close();
         } catch (IOException e) {
             System.err.println("Failed to write settings file.");
@@ -112,7 +112,7 @@ public class Utils {
 
     private static String readSettingsFile() throws IOException {
         StringBuilder builder;
-        File file = new File(Constants.SETTINGS_FILE);
+        File file = new File(Properties.SETTINGS_FILE);
         if (!file.exists()) {
             return "";
         }

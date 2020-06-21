@@ -32,12 +32,12 @@ public class SystemTrayIcon {
 
     public static void showIcon() throws AWTException {
         SystemTray.getSystemTray().add(getTrayIcon());
-        getTrayIcon().displayMessage(Constants.APP_NAME, Constants.MESSAGE_APPLICATION_STARTED, TrayIcon.MessageType.INFO);
+        getTrayIcon().displayMessage(Properties.APP_NAME, Properties.MESSAGE_APPLICATION_STARTED, TrayIcon.MessageType.INFO);
     }
 
     private static TrayIcon getTrayIcon() {
         if (trayIcon == null) {
-            trayIcon = new TrayIcon(getIconImage(), Constants.APP_NAME, getPopupMenu());
+            trayIcon = new TrayIcon(getIconImage(), Properties.APP_NAME, getPopupMenu());
             trayIcon.setImageAutoSize(true);
             getIconImage();
         }
@@ -46,7 +46,7 @@ public class SystemTrayIcon {
 
     private static Image getIconImage() {
         Image image;
-        String iconPath = (Constants.iconThemeDark) ? Constants.DARK_ICON_PATH : Constants.LIGHT_ICON_PATH;
+        String iconPath = (Properties.iconThemeDark) ? Properties.DARK_ICON_PATH : Properties.LIGHT_ICON_PATH;
         File file = new File(iconPath);
         if (file.exists()) {
             image = Toolkit.getDefaultToolkit().getImage(iconPath);
@@ -83,7 +83,7 @@ public class SystemTrayIcon {
     private static MenuItem getStartWorkItem() {
         startWorkItem = new MenuItem("Start Work (worked 0 times)");
         startWorkItem.addActionListener(e -> {
-            PomoTimer.start(Constants.workTime);
+            PomoTimer.start(Properties.workTime);
             startedWork();
         });
         return startWorkItem;
@@ -92,7 +92,7 @@ public class SystemTrayIcon {
     private static MenuItem getStartBreakItem() {
         startBreakItem = new MenuItem("Start Break");
         startBreakItem.addActionListener(e -> {
-            PomoTimer.start(Constants.breakTime);
+            PomoTimer.start(Properties.breakTime);
             startedBreak();
         });
         return startBreakItem;
@@ -101,7 +101,7 @@ public class SystemTrayIcon {
     private static MenuItem getStartLongBreakItem() {
         startLongBreakItem = new MenuItem("Start Long Break");
         startLongBreakItem.addActionListener(e -> {
-            PomoTimer.start(Constants.longBreakTime);
+            PomoTimer.start(Properties.longBreakTime);
             startedLongBreak();
         });
         return startLongBreakItem;
@@ -209,21 +209,21 @@ public class SystemTrayIcon {
     }
 
     public static void onTimeUp() {
-        if (Constants.continuousMode) {
+        if (Properties.continuousMode) {
             if (working) {
                 // break
                 if (worked == 4) {
                     // if 4 pomodoro passed
                     worked = 0;
-                    SwingUtilities.invokeLater(() -> PomoTimer.start(Constants.longBreakTime));
+                    SwingUtilities.invokeLater(() -> PomoTimer.start(Properties.longBreakTime));
                     startedLongBreak();
                 } else {
-                    SwingUtilities.invokeLater(() -> PomoTimer.start(Constants.breakTime));
+                    SwingUtilities.invokeLater(() -> PomoTimer.start(Properties.breakTime));
                     startedBreak();
                 }
             } else {
                 // start work
-                SwingUtilities.invokeLater(() -> PomoTimer.start(Constants.workTime));
+                SwingUtilities.invokeLater(() -> PomoTimer.start(Properties.workTime));
                 startedWork();
             }
         }
