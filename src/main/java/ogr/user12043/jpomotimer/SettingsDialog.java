@@ -94,6 +94,7 @@ public class SettingsDialog extends JDialog {
         TimerDialog.get().updateProperties();
         SystemTrayIcon.updateIconImage();
         Utils.updateSettings();
+        TimerDialog.get().updateIcons();
     }
 
     private void button_setDefaultsAction(ActionEvent event) {

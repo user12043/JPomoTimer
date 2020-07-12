@@ -13,6 +13,9 @@ class Properties {
     public static final String SETTINGS_FILE = "settings.json";
     public static final String DARK_ICON_PATH = "res/icon-pomodoro-dark.png";
     public static final String LIGHT_ICON_PATH = "res/icon-pomodoro-light.png";
+    public static final String PAUSE_ICON_PATH = "res/icon-pause.png";
+    public static final String RESUME_ICON_PATH = "res/icon-resume.png";
+    public static final String STOP_ICON_PATH = "res/icon-stop.png";
     public static final String ALERT_SOUND_PATH = "res/sound-timeup.wav";
     public static final String MESSAGE_APPLICATION_STARTED = "JPomoTimer is active\nYou can use the app from system tray.";
     public static final String MESSAGE_TIME_UP = "Time is up!";

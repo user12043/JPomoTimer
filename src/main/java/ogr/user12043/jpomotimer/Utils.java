@@ -3,6 +3,7 @@ package ogr.user12043.jpomotimer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -123,5 +124,23 @@ public class Utils {
             }
         }
         return builder.toString();
+    }
+
+    public static Image getIconImage(String iconPath) {
+        Image image;
+        File file = new File(iconPath);
+        if (file.exists()) {
+            image = Toolkit.getDefaultToolkit().getImage(iconPath);
+        } else {
+            try {
+                image = ImageIO.read(SystemTrayIcon.class.getResourceAsStream("/" + iconPath));
+            } catch (IOException e) {
+                System.err.println("Can not load tray icon image");
+                image = Toolkit.getDefaultToolkit().getImage(iconPath);
+            }
+        }
+        int size = Properties.timerDialogFontSize / 2;
+        image = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
+        return image;
     }
 }

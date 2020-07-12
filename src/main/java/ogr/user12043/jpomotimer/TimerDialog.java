@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created on 11.09.2018 - 16:49
@@ -13,16 +16,29 @@ import java.awt.event.MouseEvent;
  */
 public class TimerDialog extends JDialog {
     private static TimerDialog timerDialog;
+    private Icon pauseIcon;
+    private Icon resumeIcon;
+    private Icon stopIcon;
     private JPanel timePane;
+    private JPanel timeControlPanel;
     private JLabel label_minute;
     private JLabel label_separator;
     private JLabel label_second;
     private Point mouseClickPoint;
+    private JButton pauseResumeButton;
+    private JButton stopButton;
+    private MouseAdapter mouseAdapter;
+    private MouseAdapter mouseAdapterMotion;
+    private ScheduledFuture<?> hideTask;
 
     private TimerDialog() {
         initComponents();
-        addEventsForMovingWindow();
+        updateIcons();
+        bindMouseEvents();
+        addButtonEvents();
         updateProperties();
+        timeControlPanel.setSize(timeControlPanel.getWidth(), 3);
+        hideTimeControlPanel();
     }
 
     public static TimerDialog get() {
@@ -31,6 +47,17 @@ public class TimerDialog extends JDialog {
         }
 
         return timerDialog;
+    }
+
+    private void hideTimeControlPanel() {
+        // if mouse is still in frame do not close the controls
+        if (getContentPane().getMousePosition(true) != null) {
+            return;
+        }
+        hideTask = Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+            timeControlPanel.setVisible(false);
+            pack();
+        }, 2L, TimeUnit.SECONDS);
     }
 
     public void updateProperties() {
@@ -48,8 +75,9 @@ public class TimerDialog extends JDialog {
         label_second.setText(((second < 10) ? "0" : "") + second);
     }
 
-    private void addEventsForMovingWindow() {
-        addMouseListener(new MouseAdapter() {
+    private void bindMouseEvents() {
+        removeMouseListener(mouseAdapter);
+        mouseAdapter = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 mouseClickPoint = e.getPoint();
@@ -64,13 +92,27 @@ public class TimerDialog extends JDialog {
             public void mouseExited(MouseEvent e) {
                 TimerDialog.this.mouseExited(e);
             }
-        });
-        addMouseMotionListener(new MouseAdapter() {
+        };
+        addMouseListener(mouseAdapter);
+        removeMouseMotionListener(mouseAdapterMotion);
+        mouseAdapterMotion = new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 TimerDialog.this.mouseDragged(e);
             }
+        };
+        addMouseMotionListener(mouseAdapterMotion);
+    }
+
+    private void addButtonEvents() {
+        pauseResumeButton.addActionListener(actionEvent -> {
+            if (PomoTimer.isRunning()) {
+                PomoTimer.pause();
+            } else {
+                PomoTimer.resume();
+            }
         });
+        stopButton.addActionListener(actionEvent -> PomoTimer.stop());
     }
 
     private void setTimerForeground(Color foregroundColor) {
@@ -86,11 +128,15 @@ public class TimerDialog extends JDialog {
     }
 
     public void mouseEntered(MouseEvent event) {
-        System.out.println("HA");
+        if (hideTask != null && (!hideTask.isCancelled() || !hideTask.isDone())) {
+            hideTask.cancel(true);
+        }
+        timeControlPanel.setVisible(true);
+        pack();
     }
 
     public void mouseExited(MouseEvent event) {
-        System.out.println("HE");
+        hideTimeControlPanel();
     }
 
     private void initComponents() {
@@ -106,7 +152,17 @@ public class TimerDialog extends JDialog {
         timePane.add(label_separator);
         timePane.add(label_second);
 
+        pauseResumeButton = new JButton();
+        stopButton = new JButton();
+        pauseResumeButton.setEnabled(false);
+        stopButton.setEnabled(false);
+
+        timeControlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
+        timeControlPanel.add(pauseResumeButton);
+        timeControlPanel.add(stopButton);
+
         contentPane.add(timePane, BorderLayout.CENTER);
+        contentPane.add(timeControlPanel, BorderLayout.SOUTH);
 
         setContentPane(contentPane);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -117,5 +173,33 @@ public class TimerDialog extends JDialog {
         // place center of the screen
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screenSize.width / 2) - getSize().width, (screenSize.height / 2) - getSize().height);
+    }
+
+    public void updateIcons() {
+        pauseIcon = new ImageIcon(Utils.getIconImage(Properties.PAUSE_ICON_PATH));
+        resumeIcon = new ImageIcon(Utils.getIconImage(Properties.RESUME_ICON_PATH));
+        stopIcon = new ImageIcon(Utils.getIconImage(Properties.STOP_ICON_PATH));
+        pauseResumeButton.setIcon(PomoTimer.isRunning() ? pauseIcon : resumeIcon);
+        stopButton.setIcon(stopIcon);
+    }
+
+    public void timerStarted() {
+        pauseResumeButton.setEnabled(true);
+        stopButton.setEnabled(true);
+        pauseResumeButton.setIcon(pauseIcon);
+    }
+
+    public void timerStopped() {
+        pauseResumeButton.setEnabled(false);
+        stopButton.setEnabled(false);
+        setTime(0, 0);
+    }
+
+    public void timerPaused() {
+        pauseResumeButton.setIcon(resumeIcon);
+    }
+
+    public void timerResumed() {
+        pauseResumeButton.setIcon(pauseIcon);
     }
 }

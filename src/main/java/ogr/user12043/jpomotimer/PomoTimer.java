@@ -55,12 +55,14 @@ public class PomoTimer {
         getService().scheduleAtFixedRate(getTimerTask(), 0L, 1L, TimeUnit.SECONDS);
 //        timer = new Timer(true);
 //        timer.scheduleAtFixedRate(getTimerTask(), 0, 200);
+        TimerDialog.get().timerStarted();
     }
 
     public static void pause() {
         System.out.println("pausing timer");
 //        timer.cancel();
         getService().shutdown();
+        TimerDialog.get().timerPaused();
     }
 
     public static void stop() {
@@ -69,12 +71,13 @@ public class PomoTimer {
         getService().shutdown();
         minute = 0;
         second = 0;
-        TimerDialog.get().setTime(minute, second);
+        TimerDialog.get().timerStopped();
     }
 
     public static void resume() {
         System.out.println("resuming timer");
         start(minute);
+        TimerDialog.get().timerResumed();
     }
 
     public static void timeUp() {
@@ -107,5 +110,9 @@ public class PomoTimer {
         }
 
         SystemTrayIcon.onTimeUp();
+    }
+
+    public static boolean isRunning() {
+        return service != null && !(service.isShutdown() || service.isTerminated());
     }
 }
