@@ -161,6 +161,7 @@ public class SystemTrayIcon {
 
         worked++;
         startWorkItem.setLabel("Start Work" + " (worked " + worked + " times)");
+        TimerDialog.get().setStatus("Working");
     }
 
     public static void startedBreak() {
@@ -171,6 +172,7 @@ public class SystemTrayIcon {
         pauseItem.setEnabled(true);
         resumeItem.setEnabled(false);
         working = false;
+        TimerDialog.get().setStatus("Break");
     }
 
     public static void startedLongBreak() {
@@ -180,6 +182,7 @@ public class SystemTrayIcon {
         stopItem.setEnabled(true);
         pauseItem.setEnabled(true);
         resumeItem.setEnabled(false);
+        TimerDialog.get().setStatus("Long Break");
         working = false;
     }
 

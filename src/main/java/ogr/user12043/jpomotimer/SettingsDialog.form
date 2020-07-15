@@ -134,7 +134,7 @@
               <gridbag top="0" left="0" bottom="10" right="20" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Timer panel font size: "/>
+              <text value="Timer panel size: "/>
             </properties>
           </component>
           <component id="48421" class="javax.swing.JSpinner" binding="spinner_timerPanelFontSize" custom-create="true">

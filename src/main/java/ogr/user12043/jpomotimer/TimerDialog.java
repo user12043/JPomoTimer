@@ -21,9 +21,11 @@ public class TimerDialog extends JDialog {
     private Icon stopIcon;
     private JPanel timePane;
     private JPanel timeControlPanel;
+    private JPanel statusPane;
     private JLabel label_minute;
     private JLabel label_separator;
     private JLabel label_second;
+    private JLabel statusLabel;
     private Point mouseClickPoint;
     private JButton pauseResumeButton;
     private JButton stopButton;
@@ -33,12 +35,11 @@ public class TimerDialog extends JDialog {
 
     private TimerDialog() {
         initComponents();
-        updateIcons();
         bindMouseEvents();
         addButtonEvents();
         updateProperties();
         timeControlPanel.setSize(timeControlPanel.getWidth(), 3);
-        hideTimeControlPanel();
+        hidePanels();
     }
 
     public static TimerDialog get() {
@@ -49,15 +50,16 @@ public class TimerDialog extends JDialog {
         return timerDialog;
     }
 
-    private void hideTimeControlPanel() {
+    private void hidePanels() {
         // if mouse is still in frame do not close the controls
         if (getContentPane().getMousePosition(true) != null) {
             return;
         }
         hideTask = Executors.newSingleThreadScheduledExecutor().schedule(() -> {
             timeControlPanel.setVisible(false);
+            statusPane.setVisible(false);
             pack();
-        }, 2L, TimeUnit.SECONDS);
+        }, 1L, TimeUnit.SECONDS);
     }
 
     public void updateProperties() {
@@ -67,6 +69,8 @@ public class TimerDialog extends JDialog {
         label_minute.setFont(timerFont);
         label_separator.setFont(timerFont);
         label_second.setFont(timerFont);
+        updateIcons();
+        statusLabel.setFont(timerFont.deriveFont(Font.PLAIN, timerFont.getSize() / 3f));
         pack();
     }
 
@@ -132,17 +136,23 @@ public class TimerDialog extends JDialog {
             hideTask.cancel(true);
         }
         timeControlPanel.setVisible(true);
+        statusPane.setVisible(true);
         pack();
     }
 
     public void mouseExited(MouseEvent event) {
-        hideTimeControlPanel();
+        hidePanels();
+    }
+
+    public void setStatus(String text) {
+        statusLabel.setText(text);
     }
 
     private void initComponents() {
         setLayout(new FlowLayout());
         JPanel contentPane = new JPanel(new BorderLayout());
         timePane = new JPanel(new FlowLayout());
+        statusPane = new JPanel();
 
         label_minute = new JLabel("00");
         label_separator = new JLabel(" : ");
@@ -157,12 +167,17 @@ public class TimerDialog extends JDialog {
         pauseResumeButton.setEnabled(false);
         stopButton.setEnabled(false);
 
+        statusLabel = new JLabel("Stopped");
+
+        statusPane.add(statusLabel);
+
         timeControlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
         timeControlPanel.add(pauseResumeButton);
         timeControlPanel.add(stopButton);
 
         contentPane.add(timePane, BorderLayout.CENTER);
         contentPane.add(timeControlPanel, BorderLayout.SOUTH);
+        contentPane.add(statusPane, BorderLayout.NORTH);
 
         setContentPane(contentPane);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -192,7 +207,9 @@ public class TimerDialog extends JDialog {
     public void timerStopped() {
         pauseResumeButton.setEnabled(false);
         stopButton.setEnabled(false);
+        setStatus("Stopped");
         setTime(0, 0);
+        updateIcons();
     }
 
     public void timerPaused() {

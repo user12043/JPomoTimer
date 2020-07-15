@@ -94,7 +94,6 @@ public class SettingsDialog extends JDialog {
         TimerDialog.get().updateProperties();
         SystemTrayIcon.updateIconImage();
         Utils.updateSettings();
-        TimerDialog.get().updateIcons();
     }
 
     private void button_setDefaultsAction(ActionEvent event) {
@@ -238,7 +237,7 @@ public class SettingsDialog extends JDialog {
         gbc.gridy = 7;
         panel1.add(radio_iconThemeLight, gbc);
         label_timerPanelFontSize = new JLabel();
-        label_timerPanelFontSize.setText("Timer panel font size: ");
+        label_timerPanelFontSize.setText("Timer panel size: ");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 4;

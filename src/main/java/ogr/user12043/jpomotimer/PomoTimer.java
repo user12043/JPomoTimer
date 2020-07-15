@@ -72,6 +72,7 @@ public class PomoTimer {
         minute = 0;
         second = 0;
         TimerDialog.get().timerStopped();
+        SystemTrayIcon.stopped();
     }
 
     public static void resume() {
@@ -82,7 +83,6 @@ public class PomoTimer {
 
     public static void timeUp() {
         stop();
-        SystemTrayIcon.stopped();
         Clip clip = null;
         try {
             clip = AudioSystem.getClip();
