@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseWheelEvent;
 import java.io.*;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Created on 19.09.2018 - 11:21
@@ -133,7 +135,7 @@ public class Utils {
             image = Toolkit.getDefaultToolkit().getImage(iconPath);
         } else {
             try {
-                image = ImageIO.read(SystemTrayIcon.class.getResourceAsStream("/" + iconPath));
+                image = ImageIO.read(Objects.requireNonNull(SystemTrayIcon.class.getResourceAsStream("/" + iconPath)));
             } catch (IOException e) {
                 System.err.println("Can not load tray icon image");
                 image = Toolkit.getDefaultToolkit().getImage(iconPath);
@@ -142,5 +144,14 @@ public class Utils {
         int size = Properties.timerDialogFontSize / 2;
         image = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
         return image;
+    }
+
+    public static UIManager.LookAndFeelInfo findLookAndFeelByName(String name) {
+        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+            if (laf.getName().equals(name)) {
+                return laf;
+            }
+        }
+        throw new NoSuchElementException();
     }
 }

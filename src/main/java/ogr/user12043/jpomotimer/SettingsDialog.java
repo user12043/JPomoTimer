@@ -29,8 +29,15 @@ public class SettingsDialog extends JDialog {
 
     private SettingsDialog() {
         $$$setupUI$$$();
+        // setBackground for button doesn't work for Windows Look and fill.
+        // setContentAreaFilled(false) and setOpaque(true) fix it.
+        button_timerPanelBackground.setContentAreaFilled(false);
+        button_timerPanelBackground.setOpaque(true);
+        button_timerPanelForeground.setContentAreaFilled(false);
+        button_timerPanelForeground.setOpaque(true);
         setContentPane(contentPane);
         setModal(true);
+        setTitle("JPomoTimer Settings");
         setLocationByPlatform(true);
         pack();
         setMinimumSize(new Dimension(getPreferredSize().width + 10, getPreferredSize().height));
