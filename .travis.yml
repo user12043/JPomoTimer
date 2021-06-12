@@ -1,8 +1,0 @@
-language: java
-jdk: 
-  - openjdk11
-git:
-  depth: 3
-branches: 
-  only:
-  - master
