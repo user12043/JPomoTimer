@@ -13,20 +13,22 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.main-class>ogr.user12043.jpomotimer.Main</project.main-class>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-    <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
-    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <json-version>20210307</json-version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+    <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    <json-version>20230227</json-version>
   </properties>
 
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>${json-version}</version>
     </dependency>
+
   </dependencies>
 
   <build>
