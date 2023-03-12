@@ -20,7 +20,6 @@ public class SettingsDialog extends JDialog {
     private JButton button_timerPanelBackground;
     private JButton button_timerPanelForeground;
     private JButton button_setDefaults;
-    private JLabel label_iconTheme;
     private JRadioButton radio_iconThemeDark;
     private JRadioButton radio_iconThemeLight;
     private JSpinner spinner_timerPanelFontSize;
@@ -29,7 +28,7 @@ public class SettingsDialog extends JDialog {
 
     private SettingsDialog() {
         $$$setupUI$$$();
-        // setBackground for button doesn't work for Windows Look and fill.
+        // setBackground for the button doesn't work for Windows Look and feel.
         // setContentAreaFilled(false) and setOpaque(true) fix it.
         button_timerPanelBackground.setContentAreaFilled(false);
         button_timerPanelBackground.setOpaque(true);
@@ -225,14 +224,11 @@ public class SettingsDialog extends JDialog {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 0, 10, 0);
         panel1.add(button_timerPanelForeground, gbc);
-        label_iconTheme = new JLabel();
-        label_iconTheme.setText("Icon theme: ");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 7;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 10, 20);
-        panel1.add(label_iconTheme, gbc);
         radio_iconThemeDark.setText("Dark");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;

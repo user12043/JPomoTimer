@@ -20,8 +20,6 @@ public class SystemTrayIcon {
     private static MenuItem resumeItem;
     private static MenuItem stopItem;
     private static MenuItem showTimerItem;
-    private static MenuItem settingsItem;
-    private static MenuItem exitItem;
 
     private SystemTrayIcon() {
 
@@ -46,7 +44,7 @@ public class SystemTrayIcon {
     }
 
     private static Image getIconImage() {
-        return Utils.getIconImage((Properties.iconThemeDark) ? Properties.DARK_ICON_PATH : Properties.LIGHT_ICON_PATH);
+        return Utils.getIconImage(Properties.ICON_PATH);
     }
 
     private static PopupMenu getPopupMenu() {
@@ -139,13 +137,13 @@ public class SystemTrayIcon {
     }
 
     private static MenuItem getSettingsItem() {
-        settingsItem = new MenuItem("Settings");
+        MenuItem settingsItem = new MenuItem("Settings");
         settingsItem.addActionListener(e -> SwingUtilities.invokeLater(() -> SettingsDialog.get().setVisible(true)));
         return settingsItem;
     }
 
     private static MenuItem getExitItem() {
-        exitItem = new MenuItem("Exit");
+        MenuItem exitItem = new MenuItem("Exit");
         exitItem.addActionListener(e -> System.exit(0));
         return exitItem;
     }

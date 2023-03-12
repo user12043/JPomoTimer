@@ -3,14 +3,12 @@ package ogr.user12043.jpomotimer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseWheelEvent;
 import java.io.*;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 /**
  * Created on 19.09.2018 - 11:21
@@ -131,18 +129,18 @@ public class Utils {
     public static Image getIconImage(String iconPath) {
         Image image;
         File file = new File(iconPath);
-        if (file.exists()) {
-            image = Toolkit.getDefaultToolkit().getImage(iconPath);
-        } else {
-            try {
-                image = ImageIO.read(Objects.requireNonNull(SystemTrayIcon.class.getResourceAsStream("/" + iconPath)));
-            } catch (IOException e) {
-                System.err.println("Can not load tray icon image");
+        try {
+            if (file.exists()) {
                 image = Toolkit.getDefaultToolkit().getImage(iconPath);
+            } else {
+                image = Toolkit.getDefaultToolkit().getImage(SystemTrayIcon.class.getResource("/" + iconPath));
             }
+            int size = Properties.timerDialogFontSize / 2;
+            image = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
+        } catch (Exception e) {
+            System.err.println("Can not load tray icon image");
+            return null;
         }
-        int size = Properties.timerDialogFontSize / 2;
-        image = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
         return image;
     }
 
