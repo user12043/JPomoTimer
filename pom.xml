@@ -18,7 +18,7 @@
     <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
     <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-    <json-version>20230227</json-version>
+    <json-version>20231013</json-version>
   </properties>
 
   <dependencies>
