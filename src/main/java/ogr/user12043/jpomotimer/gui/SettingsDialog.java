@@ -1,4 +1,7 @@
-package ogr.user12043.jpomotimer;
+package ogr.user12043.jpomotimer.gui;
+
+import ogr.user12043.jpomotimer.util.Properties;
+import ogr.user12043.jpomotimer.util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -98,7 +101,7 @@ public class SettingsDialog extends JDialog {
         Properties.iconThemeDark = radio_iconThemeDark.isSelected();
         Properties.continuousMode = checkbox_continuousMode.isSelected();
         TimerDialog.get().updateProperties();
-        SystemTrayIcon.updateIconImage();
+        SystemTray.updateIconImage();
         Utils.updateSettings();
     }
 

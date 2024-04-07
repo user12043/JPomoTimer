@@ -1,4 +1,4 @@
-package ogr.user12043.jpomotimer;
+package ogr.user12043.jpomotimer.util;
 
 import java.awt.*;
 
@@ -8,7 +8,7 @@ import java.awt.*;
  *
  * @author user12043
  */
-class Properties {
+public class Properties {
     public static final String APP_NAME = "JPomoTimer";
     public static final String SETTINGS_FILE = "settings.json";
     public static final String ICON_PATH = "res/icon-pomodoro-with-timer.png";

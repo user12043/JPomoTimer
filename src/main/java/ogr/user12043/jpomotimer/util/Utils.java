@@ -1,5 +1,6 @@
-package ogr.user12043.jpomotimer;
+package ogr.user12043.jpomotimer.util;
 
+import ogr.user12043.jpomotimer.gui.SystemTray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -133,7 +134,7 @@ public class Utils {
             if (file.exists()) {
                 image = Toolkit.getDefaultToolkit().getImage(iconPath);
             } else {
-                image = Toolkit.getDefaultToolkit().getImage(SystemTrayIcon.class.getResource("/" + iconPath));
+                image = Toolkit.getDefaultToolkit().getImage(SystemTray.class.getResource("/" + iconPath));
             }
             int size = Properties.timerDialogFontSize / 2;
             image = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);

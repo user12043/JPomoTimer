@@ -1,5 +1,9 @@
 package ogr.user12043.jpomotimer;
 
+import ogr.user12043.jpomotimer.gui.SystemTray;
+import ogr.user12043.jpomotimer.gui.TimerDialog;
+import ogr.user12043.jpomotimer.util.Utils;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -28,7 +32,7 @@ public class Main {
         //</editor-fold>
         SwingUtilities.invokeLater(() -> {
             try {
-                SystemTrayIcon.showIcon();
+                SystemTray.showIcon();
                 TimerDialog.get().setVisible(true);
             } catch (AWTException e) {
                 System.err.println("Can not create tray icon");

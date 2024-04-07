@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ogr.user12043.jpomotimer.SettingsDialog">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ogr.user12043.jpomotimer.gui.SettingsDialog">
   <grid id="cbd77" binding="contentPane" layout-manager="GridBagLayout">
     <constraints>
       <xy x="48" y="54" width="540" height="378"/>

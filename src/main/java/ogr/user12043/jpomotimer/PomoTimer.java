@@ -1,5 +1,9 @@
 package ogr.user12043.jpomotimer;
 
+import ogr.user12043.jpomotimer.gui.SystemTray;
+import ogr.user12043.jpomotimer.gui.TimerDialog;
+import ogr.user12043.jpomotimer.util.Properties;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
@@ -72,7 +76,7 @@ public class PomoTimer {
         minute = 0;
         second = 0;
         TimerDialog.get().timerStopped();
-        SystemTrayIcon.stopped();
+        SystemTray.stopped();
     }
 
     public static void resume() {
@@ -109,7 +113,7 @@ public class PomoTimer {
             clip.flush();
         }
 
-        SystemTrayIcon.onTimeUp();
+        SystemTray.onTimeUp();
     }
 
     public static boolean isRunning() {

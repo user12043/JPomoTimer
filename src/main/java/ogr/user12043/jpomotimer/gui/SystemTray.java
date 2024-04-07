@@ -1,4 +1,8 @@
-package ogr.user12043.jpomotimer;
+package ogr.user12043.jpomotimer.gui;
+
+import ogr.user12043.jpomotimer.PomoTimer;
+import ogr.user12043.jpomotimer.util.Properties;
+import ogr.user12043.jpomotimer.util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +13,7 @@ import java.awt.*;
  *
  * @author user12043
  */
-public class SystemTrayIcon {
+public class SystemTray {
     public static boolean working;
     public static int worked = 0;
     private static TrayIcon trayIcon;
@@ -21,12 +25,12 @@ public class SystemTrayIcon {
     private static MenuItem stopItem;
     private static MenuItem showTimerItem;
 
-    private SystemTrayIcon() {
+    private SystemTray() {
 
     }
 
     public static void showIcon() throws AWTException {
-        SystemTray.getSystemTray().add(getTrayIcon());
+        java.awt.SystemTray.getSystemTray().add(getTrayIcon());
         getTrayIcon().displayMessage(Properties.APP_NAME, Properties.MESSAGE_APPLICATION_STARTED, TrayIcon.MessageType.INFO);
     }
 
